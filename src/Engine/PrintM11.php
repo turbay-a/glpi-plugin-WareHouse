@@ -68,6 +68,7 @@ final class PrintM11
      *   document_number: string,
      *   document_date: ?string,
      *   basis: string,
+     *   sender_label: string,
      *   recipient_label: string,
      *   via_label: string,
      *   handed_over_by: string,
@@ -86,8 +87,10 @@ final class PrintM11
         $dest_itemtype    = $movement->fields['dest_itemtype'] ?? null;
         $dest_items_id    = (int) ($movement->fields['dest_items_id'] ?? 0);
 
-        $header_override = trim((string) ($movement->fields['print_header'] ?? ''));
+        $header_override    = trim((string) ($movement->fields['print_header'] ?? ''));
+        $sender_override    = trim((string) ($movement->fields['print_sender'] ?? ''));
         $recipient_override = trim((string) ($movement->fields['print_recipient'] ?? ''));
+        $via_override        = trim((string) ($movement->fields['print_via'] ?? ''));
 
         $rows = self::itemRows($movement);
         $total_sum = array_sum(array_column($rows, 'sum'));
@@ -101,8 +104,9 @@ final class PrintM11
                 ?: $movement->fields['date_mod']
                 ?: $movement->fields['date_creation'],
             'basis'             => (string) ($movement->fields['comment'] ?? ''),
+            'sender_label'      => $sender_override !== '' ? $sender_override : self::endpointLabel($source_itemtype, $source_items_id),
             'recipient_label'   => $recipient_override !== '' ? $recipient_override : self::endpointLabel($dest_itemtype, $dest_items_id),
-            'via_label'         => '',
+            'via_label'         => $via_override,
             'handed_over_by'    => self::signerName($source_itemtype, $source_items_id),
             'received_by'       => self::signerName($dest_itemtype, $dest_items_id),
             'rows'              => $rows,
@@ -112,9 +116,9 @@ final class PrintM11
 
     /**
      * Saves the editable fields posted back from the print form: header/
-     * recipient overrides and "basis" on the Movement, price per row on
-     * each Document_Item. Called from front/movement.print.php on POST,
-     * after the caller has already checked the UPDATE right.
+     * sender/recipient/via overrides and "basis" on the Movement, price per
+     * row on each Document_Item. Called from front/movement.print.php on
+     * POST, after the caller has already checked the UPDATE right.
      *
      * @param array<string, mixed> $input Raw $_POST.
      */
@@ -123,7 +127,9 @@ final class PrintM11
         $movement->update([
             'id'              => $movement->getID(),
             'print_header'    => (string) ($input['print_header'] ?? ''),
+            'print_sender'    => (string) ($input['print_sender'] ?? ''),
             'print_recipient' => (string) ($input['print_recipient'] ?? ''),
+            'print_via'       => (string) ($input['print_via'] ?? ''),
             'comment'         => (string) ($input['comment'] ?? ''),
         ]);
 
@@ -272,7 +278,9 @@ final class PrintM11
 
         $header = htmlspecialchars((string) $data['header_requisites']);
         $basis  = htmlspecialchars((string) $data['basis']);
+        $from   = htmlspecialchars((string) $data['sender_label']);
         $to     = htmlspecialchars((string) $data['recipient_label']);
+        $via    = htmlspecialchars((string) $data['via_label']);
         $by     = htmlspecialchars((string) $data['handed_over_by']);
         $recv   = htmlspecialchars((string) $data['received_by']);
         $date   = $data['document_date'] ? htmlspecialchars((string) $data['document_date']) : '';
@@ -287,7 +295,9 @@ final class PrintM11
                 Номер документа: {$data['document_number']}<br/>
                 Дата складання: {$date}<br/>
                 Підстава: {$basis}<br/>
-                Кому: {$to}
+                Від кого: {$from}<br/>
+                Кому: {$to}<br/>
+                Через кого: {$via}
             </p>
             <table border="1" cellpadding="3">
                 <tr>

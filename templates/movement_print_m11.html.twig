@@ -83,8 +83,16 @@
          <input class="m11-fill" type="text" name="comment" value="{{ basis|default('') }}">
       </div>
       <div class="m11-line">
+         {{ __('Від кого', 'assetmove') }}
+         <input class="m11-fill" type="text" name="print_sender" value="{{ sender_label|default('') }}">
+      </div>
+      <div class="m11-line">
          {{ __('Кому', 'assetmove') }}
          <input class="m11-fill" type="text" name="print_recipient" value="{{ recipient_label|default('') }}">
+      </div>
+      <div class="m11-line">
+         {{ __('Через кого', 'assetmove') }}
+         <input class="m11-fill" type="text" name="print_via" value="{{ via_label|default('') }}">
       </div>
 
       <table class="m11-items">
