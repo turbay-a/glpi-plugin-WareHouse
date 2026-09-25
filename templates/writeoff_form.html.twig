@@ -1,0 +1,41 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@assetmove/macros.html.twig' as assetmove %}
+
+{# See doctype_form.html.twig for why this must be set before the include:
+   without it, an existing record's Save button renders outside any <form>
+   and silently does nothing. #}
+{% set no_header = no_header|default(not item.isNewItem() and not _get._in_modal|default(false)) %}
+{{ include('components/form/header.html.twig', {'in_twig': true}) }}
+
+<div class="card-body">
+   {% if not item.isNewID(item.fields['id']) %}
+      {{ assetmove.statusActions(item, item.getAvailableTransitions()) }}
+   {% endif %}
+
+   <div class="row">
+      {% if item.isNewID(item.fields['id']) %}
+         {{ fields.dropdownField('GlpiPlugin\\Assetmove\\DocType', 'plugin_assetmove_doctypes_id', item.fields['plugin_assetmove_doctypes_id'], 'GlpiPlugin\\Assetmove\\DocType'|itemtype_name, {
+            'condition': {'kind': constant('GlpiPlugin\\Assetmove\\Writeoff::KIND'), 'is_active': 1},
+         }) }}
+      {% else %}
+         {{ fields.htmlField('', item.fields['name'], __('Name')) }}
+         {{ fields.htmlField('', status_labels[item.fields['status']]|default(item.fields['status']), __('Status')) }}
+      {% endif %}
+   </div>
+
+   <div class="row">
+      {{ fields.dropdownField('User', 'users_id_responsible', item.fields['users_id_responsible'], __('Responsible', 'assetmove'), {'right': 'all'}) }}
+      {{ fields.dropdownField('Group', 'groups_id_responsible', item.fields['groups_id_responsible'], __('Responsible group', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.datetimeField('date_planned', item.fields['date_planned'], __('Planned date')) }}
+      {{ fields.datetimeField('date_execution', item.fields['date_execution'], __('Execution date')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.textareaField('comment', item.fields['comment'], __('Comments')) }}
+   </div>
+</div>
+
+{{ include('components/form/buttons.html.twig') }}

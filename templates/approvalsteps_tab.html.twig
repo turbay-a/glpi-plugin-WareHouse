@@ -1,0 +1,85 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+<div class="card-body">
+   {% if steps is empty %}
+      <div class="alert alert-info">
+         {{ __('No approval step yet: the document type will not require approval until at least one step is added.', 'assetmove') }}
+      </div>
+   {% else %}
+      <table class="table card-table">
+         <thead>
+            <tr>
+               <th>{{ __('Order', 'assetmove') }}</th>
+               <th>{{ __('Name') }}</th>
+               <th>{{ __('Approver', 'assetmove') }}</th>
+               <th>{{ __('Mode', 'assetmove') }}</th>
+               <th>{{ __('Mandatory', 'assetmove') }}</th>
+               <th>{{ __('Minimum amount', 'assetmove') }}</th>
+               {% if canedit %}<th></th>{% endif %}
+            </tr>
+         </thead>
+         <tbody>
+            {% for step in steps %}
+               <tr>
+                  <td>{{ step.step_order }}</td>
+                  <td>{{ step.name }}</td>
+                  <td>
+                     {{ approver_types[step.approver_type]|default(step.approver_type) }}
+                     {% if step.approver_type in ['USER', 'GROUP', 'PROFILE'] and step.approver_id > 0 %}
+                        &mdash; {{ get_item_name(step.approver_type|capitalize, step.approver_id) }}
+                     {% endif %}
+                  </td>
+                  <td>{{ modes[step.mode]|default(step.mode) }}</td>
+                  <td>{{ step.is_mandatory ? __('Yes') : __('No') }}</td>
+                  <td>{{ step.condition_min_price ?? '-' }}</td>
+                  {% if canedit %}
+                     <td>
+                        <form method="post" action="{{ path('/plugins/assetmove/front/approvalstep.form.php') }}">
+                           {{ fields.csrfField() }}
+                           <input type="hidden" name="id" value="{{ step.id }}">
+                           <button type="submit" name="delete" value="1" class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('{{ __('Delete this approval step?', 'assetmove')|e('js') }}')">
+                              <i class="ti ti-trash"></i>
+                           </button>
+                        </form>
+                     </td>
+                  {% endif %}
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+
+   {% if canedit %}
+      <form method="post" action="{{ path('/plugins/assetmove/front/approvalstep.form.php') }}" class="mt-3">
+         {{ fields.csrfField() }}
+         <input type="hidden" name="plugin_assetmove_doctypes_id" value="{{ doctype.getID() }}">
+
+         <div class="row">
+            {{ fields.numberField('step_order', 1, __('Order', 'assetmove'), {'min': 1}) }}
+            {{ fields.textField('name', '', __('Name')) }}
+         </div>
+         <div class="row">
+            {{ fields.dropdownArrayField('approver_type', constant('GlpiPlugin\\Assetmove\\ApprovalStep::APPROVER_USER'), approver_types, __('Approver', 'assetmove')) }}
+            {{ fields.dropdownField('User', '_approver_users_id', 0, __('...if a specific user', 'assetmove')) }}
+         </div>
+         <div class="row">
+            {{ fields.dropdownField('Group', '_approver_groups_id', 0, __('...if a specific group', 'assetmove')) }}
+            {{ fields.dropdownField('Profile', '_approver_profiles_id', 0, __('...if a specific profile', 'assetmove')) }}
+         </div>
+         <div class="row">
+            {{ fields.dropdownArrayField('mode', constant('GlpiPlugin\\Assetmove\\ApprovalStep::MODE_ALL'), modes, __('Mode', 'assetmove')) }}
+            {{ fields.checkboxField('is_mandatory', 1, __('Mandatory', 'assetmove')) }}
+            {{ fields.numberField('condition_min_price', '', __('Minimum amount to require this step', 'assetmove'), {'min': 0, 'step': 'any'}) }}
+         </div>
+         <div class="form-hint mb-2">
+            {{ __('Two steps with the same order run in parallel; the approval only moves on once every mandatory step of the current order is done.', 'assetmove') }}
+         </div>
+
+         <button type="submit" name="add" value="1" class="btn btn-primary">
+            <i class="ti ti-plus"></i>
+            {{ _x('button', 'Add') }}
+         </button>
+      </form>
+   {% endif %}
+</div>

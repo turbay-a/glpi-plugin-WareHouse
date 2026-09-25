@@ -1,0 +1,30 @@
+{
+    "name": "glpi-plugin/assetmove",
+    "description": "Asset movement and write-off tracking for GLPI",
+    "type": "glpi-plugin",
+    "license": "GPL-3.0-only",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.11",
+        "phpunit/phpunit": "^11"
+    },
+    "autoload": {
+        "psr-4": {
+            "GlpiPlugin\\Assetmove\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GlpiPlugin\\Assetmove\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "8.2.99"
+        },
+        "sort-packages": true
+    }
+}

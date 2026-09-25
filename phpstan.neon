@@ -1,0 +1,26 @@
+parameters:
+    level: 5
+    bootstrapFiles:
+        - tests/phpstan-bootstrap.php
+    paths:
+        - src
+        - front
+        - ajax
+        - hook.php
+        - setup.php
+    excludePaths:
+        - tests/*
+    ignoreErrors:
+        -
+            # Integration\OrderAdapter is the plugin's one deliberate,
+            # class_exists()-guarded touchpoint with the optional Order
+            # plugin (TZ 10.2/16.3); its classes are not part of this
+            # plugin's own autoload map, so phpstan cannot see them.
+            identifier: class.notFound
+            path: src/Integration/OrderAdapter.php
+        -
+            # GLPI_TMP_DIR is defined at runtime by Glpi\Application\
+            # SystemConfigurator during the real Kernel boot, not by any of
+            # the lightweight files tests/phpstan-bootstrap.php loads.
+            identifier: constant.notFound
+            path: src/Engine/PrintM11.php

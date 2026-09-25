@@ -1,0 +1,59 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{# Same `no_header` computation as core's generic_show_form.html.twig: for
+   an existing item (not a brand new one) shown outside a modal, this is
+   the top-level tab content for this object's own page, not something
+   nested inside an already-open <form> -- without it, `in_twig: true`
+   below makes header.html.twig's `open_form` false for any EXISTING
+   record, so no <form> ever wraps the Save button (it silently does
+   nothing: a <button type="submit"> outside any <form>). #}
+{% set no_header = no_header|default(not item.isNewItem() and not _get._in_modal|default(false)) %}
+{{ include('components/form/header.html.twig', {'in_twig': true}) }}
+
+<div class="card-body">
+   <div class="row">
+      {{ fields.textField('name', item.fields['name'], __('Name')) }}
+      {{ fields.dropdownArrayField('kind', item.fields['kind'], kind_labels, __('Kind', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.dropdownArrayField('source_itemtype', item.fields['source_itemtype'], route_itemtypes, __('Source type', 'assetmove'), {'display_emptychoice': true}) }}
+      {{ fields.dropdownArrayField('dest_itemtype', item.fields['dest_itemtype'], route_itemtypes, __('Destination type', 'assetmove'), {'display_emptychoice': true}) }}
+   </div>
+   <div class="form-hint mb-3">{{ __('Ignored for write-off types: a write-off only has a target state.', 'assetmove') }}</div>
+
+   <div class="row">
+      {{ fields.dropdownField('State', 'states_id_target', item.fields['states_id_target'], __('Target state', 'assetmove')) }}
+      {{ fields.dropdownField('Location', 'locations_id_transit', item.fields['locations_id_transit'], __('Transit location', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.checkboxField('is_two_phase', item.fields['is_two_phase'], __('Two-phase (ship then receive)', 'assetmove')) }}
+      {{ fields.checkboxField('is_return_expected', item.fields['is_return_expected'], __('Return expected', 'assetmove')) }}
+      {{ fields.checkboxField('is_selfreception_allowed', item.fields['is_selfreception_allowed'], __('Sender can also receive', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.checkboxField('is_apply_location', item.fields['is_apply_location'], __('Apply destination location', 'assetmove')) }}
+      {{ fields.checkboxField('is_apply_user', item.fields['is_apply_user'], __('Apply destination user', 'assetmove')) }}
+      {{ fields.checkboxField('is_apply_entity', item.fields['is_apply_entity'], __('Apply destination entity', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.checkboxField('is_clear_location', item.fields['is_clear_location'], __('Clear location', 'assetmove')) }}
+      {{ fields.checkboxField('is_clear_user', item.fields['is_clear_user'], __('Clear user/group', 'assetmove')) }}
+      {{ fields.checkboxField('is_default_for_reception', item.fields['is_default_for_reception'], __('Default type for Order reception', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.checkboxField('is_validation_required', item.fields['is_validation_required'], __('Approval required', 'assetmove')) }}
+      {{ fields.checkboxField('is_autoexecute_on_approval', item.fields['is_autoexecute_on_approval'], __('Auto-execute once approved', 'assetmove')) }}
+      {{ fields.dropdownYesNo('is_active', item.fields['is_active'], __('Active')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.textareaField('comment', item.fields['comment'], __('Comments')) }}
+   </div>
+</div>
+
+{{ include('components/form/buttons.html.twig') }}

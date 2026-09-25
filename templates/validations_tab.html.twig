@@ -1,0 +1,54 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+<div class="card-body">
+   {% if rows is empty %}
+      <div class="alert alert-info">
+         {{ __('This document has not been submitted for approval (yet).', 'assetmove') }}
+      </div>
+   {% else %}
+      <table class="table card-table">
+         <thead>
+            <tr>
+               <th>{{ __('Step', 'assetmove') }}</th>
+               <th>{{ __('Approver', 'assetmove') }}</th>
+               <th>{{ __('Mode', 'assetmove') }}</th>
+               <th>{{ __('Status') }}</th>
+               <th>{{ __('Date') }}</th>
+               <th>{{ __('Comment') }}</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in rows %}
+               <tr>
+                  <td>{{ row.step_order }}</td>
+                  <td>
+                     {{ get_item_name('User', row.users_id_validate) }}
+                     {% if row.groups_id_validate %}
+                        <br><small class="text-muted">{{ __('via group', 'assetmove') }} {{ get_item_name('Group', row.groups_id_validate) }}</small>
+                     {% endif %}
+                  </td>
+                  <td>{{ row.mode == constant('GlpiPlugin\\Assetmove\\Validation::MODE_ALL') ? __('All', 'assetmove') : __('Any', 'assetmove') }}</td>
+                  <td>{{ status_labels[row.status]|default(row.status) }}</td>
+                  <td>{{ row.validation_date ?: row.submission_date }}</td>
+                  <td>{{ row.comment_validation }}</td>
+                  <td>
+                     {% if row._can_answer %}
+                        <form method="post" action="{{ path('/plugins/assetmove/front/validation.form.php') }}" class="d-flex gap-1">
+                           {{ fields.csrfField() }}
+                           <input type="hidden" name="id" value="{{ row.id }}">
+                           <input type="text" name="comment" class="form-control form-control-sm" placeholder="{{ __('Comment') }}">
+                           <button type="submit" name="accept" value="1" class="btn btn-sm btn-success">{{ __('Approve', 'assetmove') }}</button>
+                           <button type="submit" name="refuse" value="1" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('{{ __('Refuse this document?', 'assetmove')|e('js') }}')">
+                              {{ __('Refuse', 'assetmove') }}
+                           </button>
+                        </form>
+                     {% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+</div>

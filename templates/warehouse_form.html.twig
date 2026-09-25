@@ -1,0 +1,35 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{# See doctype_form.html.twig for why this must be set before the include:
+   without it, an existing record's Save button renders outside any <form>
+   and silently does nothing. #}
+{% set no_header = no_header|default(not item.isNewItem() and not _get._in_modal|default(false)) %}
+{{ include('components/form/header.html.twig', {'in_twig': true}) }}
+
+<div class="card-body">
+   <div class="row">
+      {{ fields.textField('name', item.fields['name'], __('Name')) }}
+      {{ fields.dropdownField('Location', 'locations_id', item.fields['locations_id'], 'Location'|itemtype_name) }}
+   </div>
+
+   <div class="row">
+      {{ fields.dropdownField('User', 'users_id_manager', item.fields['users_id_manager'], __('Manager', 'assetmove'), {'right': 'all'}) }}
+      {{ fields.dropdownField('Group', 'groups_id', item.fields['groups_id'], 'Group'|itemtype_name) }}
+   </div>
+
+   <div class="row">
+      {{ fields.checkboxField('is_default', item.fields['is_default'], __('Default reception warehouse', 'assetmove')) }}
+      {{ fields.dropdownYesNo('is_active', item.fields['is_active'], __('Active')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.textareaField('comment', item.fields['comment'], __('Comments')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.textareaField('print_requisites', item.fields['print_requisites'], __('Print requisites', 'assetmove')) }}
+   </div>
+   <div class="form-hint mb-3">{{ __('Shown in the header of the printed M-11 form for movements involving this warehouse (organization name, address, etc.).', 'assetmove') }}</div>
+</div>
+
+{{ include('components/form/buttons.html.twig') }}

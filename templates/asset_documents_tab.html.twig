@@ -1,0 +1,27 @@
+<div class="card-body">
+   {% if rows is empty %}
+      <div class="alert alert-info">
+         {{ __('This item has never been referenced on an Assetmove document.', 'assetmove') }}
+      </div>
+   {% else %}
+      <table class="table card-table">
+         <thead>
+            <tr>
+               <th>{{ __('Type') }}</th>
+               <th>{{ __('Document', 'assetmove') }}</th>
+               <th>{{ __('Status') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in rows %}
+               {% set doc_itemtype = row.kind == 2 ? 'GlpiPlugin\\Assetmove\\Writeoff' : 'GlpiPlugin\\Assetmove\\Movement' %}
+               <tr>
+                  <td>{{ doc_itemtype|itemtype_name }}</td>
+                  <td>{{ get_item_link(doc_itemtype, row.id)|raw }}</td>
+                  <td>{{ status_labels[row.status]|default(row.status) }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+</div>

@@ -1,0 +1,39 @@
+{#
+ # Status transition buttons for a Movement/Writeoff form. `transitions` is
+ # AbstractDocument::getAvailableTransitions(): target status => label,
+ # already filtered down to what StateMachine allows *and* the current user
+ # is allowed to do -- the same check runs again server-side on submit
+ # (TZ 16.9: a hidden button is not enough), this only decides what to show.
+ #}
+{% macro statusActions(item, transitions) %}
+   {% if transitions is not empty %}
+      <div class="d-flex flex-wrap gap-2 mb-3">
+         {% for to, label in transitions %}
+            <form method="post" action="{{ item.getFormURL() }}">
+               {# `fields.csrfField()` (imported at the top of this file)
+                  cannot be called from *inside* another macro here -- Twig
+                  throws "Call to a member function getTemplateForMacro() on
+                  null" resolving `_self` from a macro nested this way -- so
+                  the single line it wraps is inlined directly instead. #}
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="id" value="{{ item.fields['id'] }}">
+               <input type="hidden" name="status" value="{{ to }}">
+               {% if to == constant('GlpiPlugin\\Assetmove\\Status::CANCELLED') %}
+                  <input type="hidden" name="_force" value="1">
+               {% endif %}
+               <button
+                  type="submit"
+                  name="update"
+                  value="1"
+                  class="btn btn-sm {{ to == constant('GlpiPlugin\\Assetmove\\Status::CANCELLED') ? 'btn-outline-danger' : 'btn-outline-primary' }}"
+                  {% if to == constant('GlpiPlugin\\Assetmove\\Status::CANCELLED') %}
+                     onclick="return confirm('{{ __('Cancel this document?', 'assetmove')|e('js') }}')"
+                  {% endif %}
+               >
+                  {{ label }}
+               </button>
+            </form>
+         {% endfor %}
+      </div>
+   {% endif %}
+{% endmacro %}

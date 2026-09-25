@@ -1,0 +1,75 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@assetmove/macros.html.twig' as assetmove %}
+
+{# See doctype_form.html.twig for why this must be set before the include:
+   without it, an existing record's Save button renders outside any <form>
+   and silently does nothing. #}
+{% set no_header = no_header|default(not item.isNewItem() and not _get._in_modal|default(false)) %}
+{{ include('components/form/header.html.twig', {'in_twig': true}) }}
+
+<div class="card-body">
+   {% if not item.isNewID(item.fields['id']) %}
+      {{ assetmove.statusActions(item, item.getAvailableTransitions()) }}
+
+      <div class="mb-3">
+         <a class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener"
+            href="{{ path('/plugins/assetmove/front/movement.print.php') }}?id={{ item.getID() }}">
+            <i class="ti ti-printer"></i>
+            {{ __('Print M-11', 'assetmove') }}
+         </a>
+      </div>
+   {% endif %}
+
+   {% if item.isNewID(item.fields['id']) %}
+      <div class="row">
+         {{ fields.dropdownField('GlpiPlugin\\Assetmove\\DocType', 'plugin_assetmove_doctypes_id', item.fields['plugin_assetmove_doctypes_id'], 'GlpiPlugin\\Assetmove\\DocType'|itemtype_name, {
+            'condition': {'kind': constant('GlpiPlugin\\Assetmove\\Movement::KIND'), 'is_active': 1},
+         }) }}
+      </div>
+
+      <div class="form-hint mb-3">
+         {{ __('The document type fixes the kind of source/destination (warehouse, location, user, ...); fill in only the field matching it below.', 'assetmove') }}
+      </div>
+
+      <div class="row">
+         {% for itemtype, field_name in route_field_map %}
+            {{ fields.dropdownField(itemtype, field_name, 0, __('Source', 'assetmove') ~ ' (' ~ itemtype|itemtype_name ~ ')') }}
+         {% endfor %}
+      </div>
+      <div class="row">
+         {% for itemtype, field_name in route_field_map %}
+            {{ fields.dropdownField(itemtype, '_dest' ~ field_name, 0, __('Destination', 'assetmove') ~ ' (' ~ itemtype|itemtype_name ~ ')') }}
+         {% endfor %}
+      </div>
+   {% else %}
+      <div class="row">
+         {{ fields.htmlField('', item.fields['name'], __('Name')) }}
+         {{ fields.htmlField('', status_labels[item.fields['status']]|default(item.fields['status']), __('Status')) }}
+      </div>
+
+      <div class="row">
+         {{ fields.htmlField('', (item.fields['source_itemtype'] and item.fields['source_items_id'] > 0)
+            ? (item.fields['source_itemtype']|itemtype_name) ~ ': ' ~ (get_item_link(item.fields['source_itemtype'], item.fields['source_items_id'])|default('#' ~ item.fields['source_items_id']))
+            : __('Not set', 'assetmove'), __('Source', 'assetmove')) }}
+         {{ fields.htmlField('', (item.fields['dest_itemtype'] and item.fields['dest_items_id'] > 0)
+            ? (item.fields['dest_itemtype']|itemtype_name) ~ ': ' ~ (get_item_link(item.fields['dest_itemtype'], item.fields['dest_items_id'])|default('#' ~ item.fields['dest_items_id']))
+            : __('Not set', 'assetmove'), __('Destination', 'assetmove')) }}
+      </div>
+   {% endif %}
+
+   <div class="row">
+      {{ fields.dropdownField('User', 'users_id_responsible', item.fields['users_id_responsible'], __('Responsible', 'assetmove'), {'right': 'all'}) }}
+      {{ fields.dropdownField('Group', 'groups_id_responsible', item.fields['groups_id_responsible'], __('Responsible group', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.datetimeField('date_planned', item.fields['date_planned'], __('Planned date')) }}
+      {{ fields.datetimeField('date_return_expected', item.fields['date_return_expected'], __('Return expected on', 'assetmove')) }}
+   </div>
+
+   <div class="row">
+      {{ fields.textareaField('comment', item.fields['comment'], __('Comments')) }}
+   </div>
+</div>
+
+{{ include('components/form/buttons.html.twig') }}

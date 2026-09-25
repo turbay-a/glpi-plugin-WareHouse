@@ -1,0 +1,708 @@
+# Ukrainian translations for assetmove package.
+# Copyright (C) 2026 THE assetmove'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the assetmove package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: assetmove 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-25 13:49+0000\n"
+"PO-Revision-Date: 2026-09-11 11:30+0000\n"
+"Last-Translator: Assetmove authors\n"
+"Language-Team: none\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#, php-format
+msgid "%1$s assets referenced on an Assetmove document"
+msgstr "Активів типу %1$s, згаданих у документі Assetmove"
+
+msgid "(підприємство, організація)"
+msgstr "(підприємство, організація)"
+
+msgid "...if a specific group"
+msgstr "...якщо конкретна група"
+
+msgid "...if a specific profile"
+msgstr "...якщо конкретний профіль"
+
+msgid "...if a specific user"
+msgstr "...якщо конкретний користувач"
+
+msgid ""
+"A missing item stays in the transit location, flagged; a damaged one still "
+"moves to the destination but is marked damaged. Rows left unanswered here "
+"can be resolved later -- the document only moves to Done once every row has "
+"an outcome."
+msgstr ""
+"Відсутній актив лишається в транзитній локації з позначкою; пошкоджений все "
+"одно переміщується у призначення, але позначається як пошкоджений. Рядки, "
+"залишені без відповіді, можна опрацювати пізніше — документ переходить у "
+"стан «Виконано» лише після того, як кожен рядок отримає результат."
+
+msgid "A two-phase movement must be shipped before it can be marked done."
+msgstr ""
+"Двофазне переміщення потрібно спочатку відправити, перш ніж позначити "
+"виконаним."
+
+msgid "Accepted"
+msgstr "Прийнято"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "Add an item"
+msgstr "Додати актив"
+
+msgid "Add to a new movement"
+msgstr "Додати до нового переміщення"
+
+msgid "Add to a new write-off"
+msgstr "Додати до нового списання"
+
+msgid "All"
+msgstr "Усі"
+
+msgid "All must approve"
+msgstr "Усі мають погодити"
+
+msgid "Already resolved"
+msgstr "Вже опрацьовано"
+
+msgid "Another warehouse already uses this location."
+msgstr "Інший склад вже використовує цю локацію."
+
+msgid "Any"
+msgstr "Будь-хто"
+
+msgid "Any one approval is enough"
+msgstr "Достатньо одного погодження"
+
+msgid "Any user with this profile (in the document entity)"
+msgstr "Будь-який користувач із цим профілем (в межах сутності документа)"
+
+msgid "Applied"
+msgstr "Застосовано"
+
+msgid "Apply destination entity"
+msgstr "Застосувати сутність призначення"
+
+msgid "Apply destination location"
+msgstr "Застосувати локацію призначення"
+
+msgid "Apply destination user"
+msgstr "Застосувати користувача призначення"
+
+msgid "Approval"
+msgid_plural "Approvals"
+msgstr[0] "Погодження"
+msgstr[1] "Погодження"
+msgstr[2] "Погоджень"
+
+msgid "Approval requested"
+msgstr "Запит на погодження"
+
+msgid "Approval required"
+msgstr "Потрібне погодження"
+
+msgid "Approval step"
+msgid_plural "Approval steps"
+msgstr[0] "Крок погодження"
+msgstr[1] "Кроки погодження"
+msgstr[2] "Кроків погодження"
+
+msgid "Approvals"
+msgstr "Погодження"
+
+msgid "Approve"
+msgstr "Погодити"
+
+msgid "Approved"
+msgstr "Погоджено"
+
+msgid "Approver"
+msgstr "Погоджувач"
+
+msgid "Asset movements"
+msgstr "Переміщення активів"
+
+msgid "Asset movements configuration"
+msgstr "Налаштування переміщень активів"
+
+msgid "Author's manager"
+msgstr "Керівник автора"
+
+msgid "Auto-create a reception movement from Order"
+msgstr "Автоматично створювати переміщення приймання з Order"
+
+msgid "Auto-execute once approved"
+msgstr "Автоматично виконати після погодження"
+
+msgid "Block a second active document on an item already being moved"
+msgstr "Блокувати другий активний документ для активу, який вже переміщується"
+
+msgid "Bypass segregation-of-duties checks"
+msgstr "Обійти перевірку розділення обов'язків (SoD)"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Cancel this document?"
+msgstr "Скасувати цей документ?"
+
+msgid "Cancelled"
+msgstr "Скасовано"
+
+msgid ""
+"Cancelling a shipped movement needs the Force right and an explicit "
+"confirmation."
+msgstr ""
+"Скасування відправленого переміщення потребує права «Примусово» та явного "
+"підтвердження."
+
+msgid "Clear location"
+msgstr "Очистити локацію"
+
+msgid "Clear user/group"
+msgstr "Очистити користувача/групу"
+
+msgid "Close open tickets on the item"
+msgstr "Закрити відкриті заявки на актив"
+
+#, php-format
+msgid "Created %1$s: %2$s"
+msgstr "Створено %1$s: %2$s"
+
+msgid "Current approvers"
+msgstr "Поточні погоджувачі"
+
+msgid "Damaged"
+msgstr "Пошкоджено"
+
+msgid "Damaged state"
+msgstr "Стан «Пошкоджено»"
+
+msgid "Days before an in-transit shipment is considered overdue"
+msgstr "Днів до того, як відправлення в дорозі вважається простроченим"
+
+msgid "Default reception warehouse"
+msgstr "Склад приймання за замовчуванням"
+
+msgid "Default type for Order reception"
+msgstr "Тип документа за замовчуванням для приймання з Order"
+
+msgid "Delete this approval step?"
+msgstr "Видалити цей крок погодження?"
+
+msgid "Destination"
+msgstr "Призначення"
+
+msgid "Destination type"
+msgstr "Тип призначення"
+
+msgid "Destination warehouse manager"
+msgstr "МОЛ складу-призначення"
+
+msgid "Discrepancy"
+msgstr "Розбіжність"
+
+msgid "Document"
+msgstr "Документ"
+
+msgid "Document type"
+msgid_plural "Document types"
+msgstr[0] "Тип документа"
+msgstr[1] "Типи документів"
+msgstr[2] "Типів документів"
+
+msgid "Done"
+msgstr "Виконано"
+
+msgid "Done (applied immediately)"
+msgstr "Виконано (застосовується одразу)"
+
+msgid "Escalation (overdue shipment cron, twice the reminder delay)"
+msgstr ""
+"Ескалація (крон прострочених відправлень, подвійна затримка нагадування)"
+
+msgid ""
+"Every item has been resolved; the document will move to Done as soon as this "
+"is saved."
+msgstr ""
+"Усі активи опрацьовано; документ перейде у стан «Виконано» одразу після "
+"збереження."
+
+msgid "Execute"
+msgstr "Виконати"
+
+msgid "Fallback: also detect receptions via Infocom"
+msgstr "Резервний варіант: також визначати приймання через Infocom"
+
+msgid "Fill the Infocom decommission date"
+msgstr "Заповнити дату виведення з експлуатації в Infocom"
+
+msgid "Force"
+msgstr "Примусово"
+
+msgid "Forced cancellation of a shipped movement"
+msgstr "Примусове скасування відправленого переміщення"
+
+msgid "Forced self-reception (same person shipped and received)"
+msgstr "Примусове самоприймання (та сама особа відправила й прийняла)"
+
+msgid "Ignored for write-off types: a write-off only has a target state."
+msgstr "Ігнорується для типів списання: списання має лише цільовий стан."
+
+msgid "In-stock state"
+msgstr "Стан «На складі»"
+
+msgid "In-transit state"
+msgstr "Стан «В транзиті»"
+
+msgid "Initial status of a reception movement"
+msgstr "Початковий статус переміщення приймання"
+
+msgid "Item"
+msgid_plural "Items"
+msgstr[0] "Актив"
+msgstr[1] "Активи"
+msgstr[2] "Активів"
+
+msgid "Item not found at reception."
+msgstr "Актив не знайдено під час приймання."
+
+msgid "Item not found while executing the write-off."
+msgstr "Актив не знайдено під час виконання списання."
+
+msgid "Item not found while shipping."
+msgstr "Актив не знайдено під час відправлення."
+
+msgid "Items can only be added or removed while the document is still new."
+msgstr "Активи можна додавати або видаляти, лише поки документ ще новий."
+
+msgid "Kind"
+msgstr "Вид"
+
+msgid "Lets this asset be listed on Assetmove movement/write-off documents."
+msgstr ""
+"Дозволяє цьому активу з'являтися в документах переміщення/списання Assetmove."
+
+msgid "Lost state"
+msgstr "Стан «Втрачено»"
+
+msgid "Manager"
+msgstr "МОЛ"
+
+msgid "Mandatory"
+msgstr "Обов'язковий"
+
+msgid "Minimum amount"
+msgstr "Мінімальна сума"
+
+msgid "Minimum amount to require this step"
+msgstr "Мінімальна сума для обов'язковості цього кроку"
+
+msgid "Missing"
+msgstr "Відсутній"
+
+msgid "Mode"
+msgstr "Режим"
+
+msgid "Movable (Assetmove)"
+msgstr "Переміщуваний (Assetmove)"
+
+msgid "Move the item to the trash bin"
+msgstr "Перемістити актив у кошик"
+
+msgid "Movement"
+msgid_plural "Movements"
+msgstr[0] "Переміщення"
+msgstr[1] "Переміщення"
+msgstr[2] "Переміщень"
+
+msgid "Movement numbering format"
+msgstr "Формат нумерації переміщень"
+
+msgid "Movements"
+msgstr "Переміщення"
+
+msgid "New"
+msgstr "Новий"
+
+msgid "New (a controller must confirm it)"
+msgstr "Новий (потребує підтвердження контролером)"
+
+msgid "New document"
+msgstr "Новий документ"
+
+msgid ""
+"No approval step yet: the document type will not require approval until at "
+"least one step is added."
+msgstr ""
+"Ще немає кроків погодження: тип документа не вимагатиме погодження, доки не "
+"додано хоча б один крок."
+
+msgid "No item in this document yet."
+msgstr "У цьому документі ще немає активів."
+
+msgid "Not set"
+msgstr "Не вказано"
+
+msgid "Not started"
+msgstr "Не розпочато"
+
+msgid "Only two-phase movements can be shipped."
+msgstr "Відправляти можна лише двофазні переміщення."
+
+msgid "Order"
+msgstr "Порядок"
+
+msgid "Order integration"
+msgstr "Інтеграція з Order"
+
+#, php-format
+msgid "Order-side change ignored (movement already Done): %s"
+msgstr "Зміну з боку Order проігноровано (документ вже виконано): %s"
+
+msgid "Outcome"
+msgstr "Результат"
+
+msgid "Overdue"
+msgstr "Прострочено"
+
+msgid "Owner(s) of the items in the document"
+msgstr "Власник(и) активів у документі"
+
+msgid "Pending"
+msgstr "Очікує"
+
+msgid "Pending approval"
+msgstr "На погодженні"
+
+msgid "Pending reception"
+msgstr "Очікує приймання"
+
+msgid "Please select a document type."
+msgstr "Виберіть тип документа."
+
+msgid "Please select a location."
+msgstr "Виберіть локацію."
+
+msgid "Print"
+msgstr "Друкувати"
+
+msgid "Print M-11"
+msgstr "Друк М-11"
+
+msgid "Print requisites"
+msgstr "Реквізити для друку"
+
+msgid "Receive"
+msgstr "Прийняти"
+
+msgid "Received"
+msgstr "Прийнято"
+
+msgid "Reception"
+msgstr "Приймання"
+
+msgid "Reception date"
+msgstr "Дата приймання"
+
+msgid "Reception was reverted on the Order side."
+msgstr "Приймання скасовано з боку Order."
+
+msgid "Refuse"
+msgstr "Відхилити"
+
+msgid "Refuse this document?"
+msgstr "Відхилити цей документ?"
+
+msgid "Refused"
+msgstr "Відхилено"
+
+msgid "Remind about items overdue for return"
+msgstr "Нагадувати про активи, прострочені для повернення"
+
+msgid "Remind about movements past their planned date"
+msgstr "Нагадувати про переміщення, що минули заплановану дату"
+
+msgid "Remind about movements stuck in transit too long"
+msgstr "Нагадувати про переміщення, що застрягли в дорозі надто довго"
+
+msgid "Remind approvers about pending approvals"
+msgstr "Нагадувати погоджувачам про очікувані погодження"
+
+msgid "Responsible"
+msgstr "Відповідальний"
+
+msgid "Responsible group"
+msgstr "Відповідальна група"
+
+msgid "Return expected"
+msgstr "Очікується повернення"
+
+msgid "Return expected on"
+msgstr "Повернення очікується"
+
+msgid "Row status"
+msgstr "Статус рядка"
+
+msgid "Save and print"
+msgstr "Зберегти та надрукувати"
+
+msgid "Save reception"
+msgstr "Зберегти приймання"
+
+msgid "Saved. A copy has been stored as a Document on this Movement."
+msgstr "Збережено. Копію додано як документ до цього переміщення."
+
+msgid "Sender can also receive"
+msgstr "Відправник може також приймати"
+
+msgid "Ship"
+msgstr "Відправити"
+
+msgid "Shipped"
+msgstr "Відправлено"
+
+msgid "Shipping date"
+msgstr "Дата відправлення"
+
+msgid ""
+"Shown in the header of the printed M-11 form for movements involving this "
+"warehouse (organization name, address, etc.)."
+msgstr ""
+"Виводиться в шапці друкованої форми М-11 для переміщень, пов'язаних із цим "
+"складом (назва організації, адреса тощо)."
+
+msgid "Source"
+msgstr "Джерело"
+
+msgid "Source type"
+msgstr "Тип джерела"
+
+msgid "Source warehouse manager"
+msgstr "МОЛ складу-джерела"
+
+msgid "Specific group"
+msgstr "Конкретна група"
+
+msgid "Specific user"
+msgstr "Конкретний користувач"
+
+msgid "States"
+msgstr "Стани"
+
+msgid "Step"
+msgstr "Крок"
+
+msgid "Submit for approval"
+msgstr "Подати на погодження"
+
+msgid "Target state"
+msgstr "Цільовий стан"
+
+msgid ""
+"The Order plugin is also configured to set a state on newly generated "
+"assets. Both plugins will fight over the state field: either clear Order's "
+"\"generated asset state\" setting, or leave this document type's target "
+"state empty."
+msgstr ""
+"Плагін Order також налаштований встановлювати стан для щойно створених "
+"активів. Обидва плагіни конкуруватимуть за поле стану: або очистіть "
+"налаштування Order «стан створеного активу», або лишіть цільовий стан цього "
+"типу документа порожнім."
+
+msgid ""
+"The approval route is empty once resolved to actual approvers; check the "
+"document type's approval steps."
+msgstr ""
+"Маршрут погодження виявився порожнім після визначення фактичних "
+"погоджувачів; перевірте кроки погодження цього типу документа."
+
+msgid "The document could not be created."
+msgstr "Не вдалося створити документ."
+
+msgid ""
+"The document type fixes the kind of source/destination (warehouse, location, "
+"user, ...); fill in only the field matching it below."
+msgstr ""
+"Тип документа визначає вид джерела/призначення (склад, локація, "
+"користувач, ...); заповніть нижче лише поле, що йому відповідає."
+
+msgid "The linked Order item was deleted."
+msgstr "Пов'язаний рядок Order видалено."
+
+msgid "The same person cannot both ship and receive this movement."
+msgstr "Та сама особа не може одночасно відправити й прийняти це переміщення."
+
+msgid "This document has not been submitted for approval (yet)."
+msgstr "Цей документ ще не подано на погодження."
+
+msgid "This document type requires approval; submit it for validation instead."
+msgstr ""
+"Цей тип документа вимагає погодження; замість цього подайте його на "
+"погодження."
+
+msgid "This item has never been referenced on an Assetmove document."
+msgstr "Цей актив ніколи не згадувався в документі Assetmove."
+
+msgid "This item is already on another active movement or write-off document."
+msgstr "Цей актив вже є в іншому активному документі переміщення або списання."
+
+msgid "This status change is not allowed from the current status."
+msgstr "Ця зміна статусу неможлива з поточного статусу."
+
+msgid ""
+"This transition can only happen automatically once approval is complete."
+msgstr "Цей перехід відбувається лише автоматично після завершення погодження."
+
+msgid "Transit"
+msgstr "Транзит"
+
+msgid "Transit location"
+msgstr "Транзитна локація"
+
+msgid "Transit location (default)"
+msgstr "Транзитна локація (за замовчуванням)"
+
+msgid ""
+"Two steps with the same order run in parallel; the approval only moves on "
+"once every mandatory step of the current order is done."
+msgstr ""
+"Два кроки з однаковим порядковим номером виконуються паралельно; погодження "
+"просувається далі лише після завершення всіх обов'язкових кроків поточного "
+"порядку."
+
+msgid "Two-phase (ship then receive)"
+msgstr "Двофазне (відправлення, потім приймання)"
+
+msgid "Waiting"
+msgstr "Очікує"
+
+msgid "Warehouse"
+msgid_plural "Warehouses"
+msgstr[0] "Склад"
+msgstr[1] "Склади"
+msgstr[2] "Складів"
+
+msgid "Write-off"
+msgid_plural "Write-offs"
+msgstr[0] "Списання"
+msgstr[1] "Списання"
+msgstr[2] "Списань"
+
+msgid "Write-off numbering format"
+msgstr "Формат нумерації списань"
+
+msgid "Write-offs"
+msgstr "Списання"
+
+msgid "Written-off state"
+msgstr "Стан «Виведено з експлуатації»"
+
+msgid ""
+"You are not the manager (or a member of the responsible group) of the "
+"destination warehouse."
+msgstr "Ви не МОЛ (і не член відповідальної групи) складу призначення."
+
+msgid ""
+"You are not the manager (or a member of the responsible group) of the source "
+"warehouse."
+msgstr "Ви не МОЛ (і не член відповідальної групи) складу-джерела."
+
+msgid ""
+"You cannot receive this movement: you must be allowed to receive (right + "
+"destination warehouse manager/group if any), and the same person cannot both "
+"ship and receive unless the document type allows it."
+msgstr ""
+"Ви не можете прийняти це переміщення: потрібен дозвіл на приймання (право + "
+"МОЛ/група складу призначення, якщо визначені), і та сама особа не може "
+"одночасно відправити й прийняти, якщо це не дозволено типом документа."
+
+msgid "You do not have the right to perform this status change."
+msgstr "У вас немає права виконати цю зміну статусу."
+
+msgid "via group"
+msgstr "за групою"
+
+msgid "Інвентарний номер"
+msgstr "Інвентарний номер"
+
+msgid "Всього відпущено"
+msgstr "Всього відпущено"
+
+msgid "Дата складання"
+msgstr "Дата складання"
+
+msgid "Затверджена наказом Мінстату України від 21.06.96 р. N 193"
+msgstr "Затверджена наказом Мінстату України від 21.06.96 р. N 193"
+
+msgid "Здав (відпустив)"
+msgstr "Здав (відпустив)"
+
+msgid "Код виду операції"
+msgstr "Код виду операції"
+
+msgid "Кому"
+msgstr "Кому"
+
+msgid "Кількість"
+msgstr "Кількість"
+
+msgid "Матеріальні цінності (найменування, сорт, розмір, марка)"
+msgstr "Матеріальні цінності (найменування, сорт, розмір, марка)"
+
+msgid "НАКЛАДНА-ВИМОГА"
+msgstr "НАКЛАДНА-ВИМОГА"
+
+msgid "Номер документа"
+msgstr "Номер документа"
+
+msgid "Одиниця виміру"
+msgstr "Одиниця виміру"
+
+msgid "Порядковий номер"
+msgstr "Порядковий номер"
+
+msgid "Прийняв (одержав)"
+msgstr "Прийняв (одержав)"
+
+msgid "Підстава"
+msgstr "Підстава"
+
+msgid "Сума"
+msgstr "Сума"
+
+msgid "Типова форма N М-11"
+msgstr "Типова форма N М-11"
+
+msgid "Ціна"
+msgstr "Ціна"
+
+msgid "Через кого"
+msgstr "Через кого"
+
+msgid "відправлено"
+msgstr "відправлено"
+
+msgid "на відпуск /внутрішнє переміщення/ матеріалів"
+msgstr "на відпуск /внутрішнє переміщення/ матеріалів"
+
+msgid "найменувань, на суму"
+msgstr "найменувань, на суму"
+
+msgid "прийнято"
+msgstr "прийнято"
+
+msgid "шт."
+msgstr "шт."
+
+#~ msgctxt "button"
+#~ msgid "Save"
+#~ msgstr "Зберегти"

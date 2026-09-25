@@ -1,0 +1,666 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the assetmove package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: assetmove 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-25 13:49+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#, php-format
+msgid "%1$s assets referenced on an Assetmove document"
+msgstr ""
+
+msgid "(підприємство, організація)"
+msgstr ""
+
+msgid "...if a specific group"
+msgstr ""
+
+msgid "...if a specific profile"
+msgstr ""
+
+msgid "...if a specific user"
+msgstr ""
+
+msgid ""
+"A missing item stays in the transit location, flagged; a damaged one still "
+"moves to the destination but is marked damaged. Rows left unanswered here "
+"can be resolved later -- the document only moves to Done once every row has "
+"an outcome."
+msgstr ""
+
+msgid "A two-phase movement must be shipped before it can be marked done."
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Add an item"
+msgstr ""
+
+msgid "Add to a new movement"
+msgstr ""
+
+msgid "Add to a new write-off"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "All must approve"
+msgstr ""
+
+msgid "Already resolved"
+msgstr ""
+
+msgid "Another warehouse already uses this location."
+msgstr ""
+
+msgid "Any"
+msgstr ""
+
+msgid "Any one approval is enough"
+msgstr ""
+
+msgid "Any user with this profile (in the document entity)"
+msgstr ""
+
+msgid "Applied"
+msgstr ""
+
+msgid "Apply destination entity"
+msgstr ""
+
+msgid "Apply destination location"
+msgstr ""
+
+msgid "Apply destination user"
+msgstr ""
+
+msgid "Approval"
+msgid_plural "Approvals"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Approval requested"
+msgstr ""
+
+msgid "Approval required"
+msgstr ""
+
+msgid "Approval step"
+msgid_plural "Approval steps"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Approvals"
+msgstr ""
+
+msgid "Approve"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+msgid "Approver"
+msgstr ""
+
+msgid "Asset movements"
+msgstr ""
+
+msgid "Asset movements configuration"
+msgstr ""
+
+msgid "Author's manager"
+msgstr ""
+
+msgid "Auto-create a reception movement from Order"
+msgstr ""
+
+msgid "Auto-execute once approved"
+msgstr ""
+
+msgid "Block a second active document on an item already being moved"
+msgstr ""
+
+msgid "Bypass segregation-of-duties checks"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Cancel this document?"
+msgstr ""
+
+msgid "Cancelled"
+msgstr ""
+
+msgid ""
+"Cancelling a shipped movement needs the Force right and an explicit "
+"confirmation."
+msgstr ""
+
+msgid "Clear location"
+msgstr ""
+
+msgid "Clear user/group"
+msgstr ""
+
+msgid "Close open tickets on the item"
+msgstr ""
+
+#, php-format
+msgid "Created %1$s: %2$s"
+msgstr ""
+
+msgid "Current approvers"
+msgstr ""
+
+msgid "Damaged"
+msgstr ""
+
+msgid "Damaged state"
+msgstr ""
+
+msgid "Days before an in-transit shipment is considered overdue"
+msgstr ""
+
+msgid "Default reception warehouse"
+msgstr ""
+
+msgid "Default type for Order reception"
+msgstr ""
+
+msgid "Delete this approval step?"
+msgstr ""
+
+msgid "Destination"
+msgstr ""
+
+msgid "Destination type"
+msgstr ""
+
+msgid "Destination warehouse manager"
+msgstr ""
+
+msgid "Discrepancy"
+msgstr ""
+
+msgid "Document"
+msgstr ""
+
+msgid "Document type"
+msgid_plural "Document types"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Done"
+msgstr ""
+
+msgid "Done (applied immediately)"
+msgstr ""
+
+msgid "Escalation (overdue shipment cron, twice the reminder delay)"
+msgstr ""
+
+msgid ""
+"Every item has been resolved; the document will move to Done as soon as this "
+"is saved."
+msgstr ""
+
+msgid "Execute"
+msgstr ""
+
+msgid "Fallback: also detect receptions via Infocom"
+msgstr ""
+
+msgid "Fill the Infocom decommission date"
+msgstr ""
+
+msgid "Force"
+msgstr ""
+
+msgid "Forced cancellation of a shipped movement"
+msgstr ""
+
+msgid "Forced self-reception (same person shipped and received)"
+msgstr ""
+
+msgid "Ignored for write-off types: a write-off only has a target state."
+msgstr ""
+
+msgid "In-stock state"
+msgstr ""
+
+msgid "In-transit state"
+msgstr ""
+
+msgid "Initial status of a reception movement"
+msgstr ""
+
+msgid "Item"
+msgid_plural "Items"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Item not found at reception."
+msgstr ""
+
+msgid "Item not found while executing the write-off."
+msgstr ""
+
+msgid "Item not found while shipping."
+msgstr ""
+
+msgid "Items can only be added or removed while the document is still new."
+msgstr ""
+
+msgid "Kind"
+msgstr ""
+
+msgid "Lets this asset be listed on Assetmove movement/write-off documents."
+msgstr ""
+
+msgid "Lost state"
+msgstr ""
+
+msgid "Manager"
+msgstr ""
+
+msgid "Mandatory"
+msgstr ""
+
+msgid "Minimum amount"
+msgstr ""
+
+msgid "Minimum amount to require this step"
+msgstr ""
+
+msgid "Missing"
+msgstr ""
+
+msgid "Mode"
+msgstr ""
+
+msgid "Movable (Assetmove)"
+msgstr ""
+
+msgid "Move the item to the trash bin"
+msgstr ""
+
+msgid "Movement"
+msgid_plural "Movements"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Movement numbering format"
+msgstr ""
+
+msgid "Movements"
+msgstr ""
+
+msgid "New"
+msgstr ""
+
+msgid "New (a controller must confirm it)"
+msgstr ""
+
+msgid "New document"
+msgstr ""
+
+msgid ""
+"No approval step yet: the document type will not require approval until at "
+"least one step is added."
+msgstr ""
+
+msgid "No item in this document yet."
+msgstr ""
+
+msgid "Not set"
+msgstr ""
+
+msgid "Not started"
+msgstr ""
+
+msgid "Only two-phase movements can be shipped."
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Order integration"
+msgstr ""
+
+#, php-format
+msgid "Order-side change ignored (movement already Done): %s"
+msgstr ""
+
+msgid "Outcome"
+msgstr ""
+
+msgid "Overdue"
+msgstr ""
+
+msgid "Owner(s) of the items in the document"
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "Pending approval"
+msgstr ""
+
+msgid "Pending reception"
+msgstr ""
+
+msgid "Please select a document type."
+msgstr ""
+
+msgid "Please select a location."
+msgstr ""
+
+msgid "Print"
+msgstr ""
+
+msgid "Print M-11"
+msgstr ""
+
+msgid "Print requisites"
+msgstr ""
+
+msgid "Receive"
+msgstr ""
+
+msgid "Received"
+msgstr ""
+
+msgid "Reception"
+msgstr ""
+
+msgid "Reception date"
+msgstr ""
+
+msgid "Reception was reverted on the Order side."
+msgstr ""
+
+msgid "Refuse"
+msgstr ""
+
+msgid "Refuse this document?"
+msgstr ""
+
+msgid "Refused"
+msgstr ""
+
+msgid "Remind about items overdue for return"
+msgstr ""
+
+msgid "Remind about movements past their planned date"
+msgstr ""
+
+msgid "Remind about movements stuck in transit too long"
+msgstr ""
+
+msgid "Remind approvers about pending approvals"
+msgstr ""
+
+msgid "Responsible"
+msgstr ""
+
+msgid "Responsible group"
+msgstr ""
+
+msgid "Return expected"
+msgstr ""
+
+msgid "Return expected on"
+msgstr ""
+
+msgid "Row status"
+msgstr ""
+
+msgid "Save and print"
+msgstr ""
+
+msgid "Save reception"
+msgstr ""
+
+msgid "Saved. A copy has been stored as a Document on this Movement."
+msgstr ""
+
+msgid "Sender can also receive"
+msgstr ""
+
+msgid "Ship"
+msgstr ""
+
+msgid "Shipped"
+msgstr ""
+
+msgid "Shipping date"
+msgstr ""
+
+msgid ""
+"Shown in the header of the printed M-11 form for movements involving this "
+"warehouse (organization name, address, etc.)."
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Source type"
+msgstr ""
+
+msgid "Source warehouse manager"
+msgstr ""
+
+msgid "Specific group"
+msgstr ""
+
+msgid "Specific user"
+msgstr ""
+
+msgid "States"
+msgstr ""
+
+msgid "Step"
+msgstr ""
+
+msgid "Submit for approval"
+msgstr ""
+
+msgid "Target state"
+msgstr ""
+
+msgid ""
+"The Order plugin is also configured to set a state on newly generated "
+"assets. Both plugins will fight over the state field: either clear Order's "
+"\"generated asset state\" setting, or leave this document type's target "
+"state empty."
+msgstr ""
+
+msgid ""
+"The approval route is empty once resolved to actual approvers; check the "
+"document type's approval steps."
+msgstr ""
+
+msgid "The document could not be created."
+msgstr ""
+
+msgid ""
+"The document type fixes the kind of source/destination (warehouse, location, "
+"user, ...); fill in only the field matching it below."
+msgstr ""
+
+msgid "The linked Order item was deleted."
+msgstr ""
+
+msgid "The same person cannot both ship and receive this movement."
+msgstr ""
+
+msgid "This document has not been submitted for approval (yet)."
+msgstr ""
+
+msgid "This document type requires approval; submit it for validation instead."
+msgstr ""
+
+msgid "This item has never been referenced on an Assetmove document."
+msgstr ""
+
+msgid "This item is already on another active movement or write-off document."
+msgstr ""
+
+msgid "This status change is not allowed from the current status."
+msgstr ""
+
+msgid ""
+"This transition can only happen automatically once approval is complete."
+msgstr ""
+
+msgid "Transit"
+msgstr ""
+
+msgid "Transit location"
+msgstr ""
+
+msgid "Transit location (default)"
+msgstr ""
+
+msgid ""
+"Two steps with the same order run in parallel; the approval only moves on "
+"once every mandatory step of the current order is done."
+msgstr ""
+
+msgid "Two-phase (ship then receive)"
+msgstr ""
+
+msgid "Waiting"
+msgstr ""
+
+msgid "Warehouse"
+msgid_plural "Warehouses"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Write-off"
+msgid_plural "Write-offs"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Write-off numbering format"
+msgstr ""
+
+msgid "Write-offs"
+msgstr ""
+
+msgid "Written-off state"
+msgstr ""
+
+msgid ""
+"You are not the manager (or a member of the responsible group) of the "
+"destination warehouse."
+msgstr ""
+
+msgid ""
+"You are not the manager (or a member of the responsible group) of the source "
+"warehouse."
+msgstr ""
+
+msgid ""
+"You cannot receive this movement: you must be allowed to receive (right + "
+"destination warehouse manager/group if any), and the same person cannot both "
+"ship and receive unless the document type allows it."
+msgstr ""
+
+msgid "You do not have the right to perform this status change."
+msgstr ""
+
+msgid "via group"
+msgstr ""
+
+msgid "Інвентарний номер"
+msgstr ""
+
+msgid "Всього відпущено"
+msgstr ""
+
+msgid "Дата складання"
+msgstr ""
+
+msgid "Затверджена наказом Мінстату України від 21.06.96 р. N 193"
+msgstr ""
+
+msgid "Здав (відпустив)"
+msgstr ""
+
+msgid "Код виду операції"
+msgstr ""
+
+msgid "Кому"
+msgstr ""
+
+msgid "Кількість"
+msgstr ""
+
+msgid "Матеріальні цінності (найменування, сорт, розмір, марка)"
+msgstr ""
+
+msgid "НАКЛАДНА-ВИМОГА"
+msgstr ""
+
+msgid "Номер документа"
+msgstr ""
+
+msgid "Одиниця виміру"
+msgstr ""
+
+msgid "Порядковий номер"
+msgstr ""
+
+msgid "Прийняв (одержав)"
+msgstr ""
+
+msgid "Підстава"
+msgstr ""
+
+msgid "Сума"
+msgstr ""
+
+msgid "Типова форма N М-11"
+msgstr ""
+
+msgid "Ціна"
+msgstr ""
+
+msgid "Через кого"
+msgstr ""
+
+msgid "відправлено"
+msgstr ""
+
+msgid "на відпуск /внутрішнє переміщення/ матеріалів"
+msgstr ""
+
+msgid "найменувань, на суму"
+msgstr ""
+
+msgid "прийнято"
+msgstr ""
+
+msgid "шт."
+msgstr ""

@@ -1,0 +1,78 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+<div class="card-body">
+   {% if not can_receive %}
+      <div class="alert alert-warning">
+         {{ __('You cannot receive this movement: you must be allowed to receive (right + destination warehouse manager/group if any), and the same person cannot both ship and receive unless the document type allows it.', 'assetmove') }}
+      </div>
+   {% endif %}
+
+   {% if resolved is not empty %}
+      <h4>{{ __('Already resolved', 'assetmove') }}</h4>
+      <table class="table card-table mb-4">
+         <thead>
+            <tr>
+               <th>{{ __('Item') }}</th>
+               <th>{{ __('Outcome', 'assetmove') }}</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in resolved %}
+               <tr>
+                  <td>{{ get_item_link(row.itemtype, row.items_id)|raw }}</td>
+                  <td>
+                     {% if row.reception_status == 1 %}
+                        <span class="badge bg-green-lt">{{ __('Accepted', 'assetmove') }}</span>
+                     {% elseif row.reception_status == 2 %}
+                        <span class="badge bg-red-lt">{{ __('Missing', 'assetmove') }}</span>
+                     {% else %}
+                        <span class="badge bg-orange-lt">{{ __('Damaged', 'assetmove') }}</span>
+                     {% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+
+   {% if pending is empty %}
+      <div class="alert alert-info">
+         {{ __('Every item has been resolved; the document will move to Done as soon as this is saved.', 'assetmove') }}
+      </div>
+   {% elseif can_receive %}
+      <h4>{{ __('Pending reception', 'assetmove') }}</h4>
+      <form method="post" action="{{ path('/plugins/assetmove/front/reception.form.php') }}">
+         {{ fields.csrfField() }}
+         <input type="hidden" name="plugin_assetmove_movements_id" value="{{ document.getID() }}">
+         <table class="table card-table">
+            <thead>
+               <tr>
+                  <th>{{ __('Type') }}</th>
+                  <th>{{ __('Item') }}</th>
+                  <th>{{ __('Accepted', 'assetmove') }}</th>
+                  <th>{{ __('Missing', 'assetmove') }}</th>
+                  <th>{{ __('Damaged', 'assetmove') }}</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for row in pending %}
+                  <tr>
+                     <td>{{ row.itemtype|itemtype_name }}</td>
+                     <td>{{ get_item_link(row.itemtype, row.items_id)|raw }}</td>
+                     <td><input type="radio" name="reception[{{ row.id }}]" value="1" checked></td>
+                     <td><input type="radio" name="reception[{{ row.id }}]" value="2"></td>
+                     <td><input type="radio" name="reception[{{ row.id }}]" value="3"></td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+         <div class="form-hint mb-2">
+            {{ __('A missing item stays in the transit location, flagged; a damaged one still moves to the destination but is marked damaged. Rows left unanswered here can be resolved later -- the document only moves to Done once every row has an outcome.', 'assetmove') }}
+         </div>
+         <button type="submit" name="receive" value="1" class="btn btn-primary">
+            <i class="ti ti-package-import"></i>
+            {{ __('Save reception', 'assetmove') }}
+         </button>
+      </form>
+   {% endif %}
+</div>

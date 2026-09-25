@@ -1,0 +1,67 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+{% set canedit = params['canedit']|default(item.canUpdateItem()) %}
+
+<form method="post" action="{{ path('/plugins/assetmove/front/config.form.php') }}" id="assetmove-config-form">
+   {{ fields.csrfField() }}
+   <input type="hidden" name="id" value="{{ item.fields['id'] }}">
+
+   <div class="card-body">
+      <h3>{{ __('States', 'assetmove') }}</h3>
+      <div class="row">
+         {{ fields.dropdownField('Location', 'locations_id_transit', item.fields['locations_id_transit'], __('Transit location (default)', 'assetmove'), {'disabled': not canedit}) }}
+      </div>
+      <div class="row">
+         {{ fields.dropdownField('State', 'states_id_instock', item.fields['states_id_instock'], __('In-stock state', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.dropdownField('State', 'states_id_intransit', item.fields['states_id_intransit'], __('In-transit state', 'assetmove'), {'disabled': not canedit}) }}
+      </div>
+      <div class="row">
+         {{ fields.dropdownField('State', 'states_id_writeoff', item.fields['states_id_writeoff'], __('Written-off state', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.dropdownField('State', 'states_id_lost', item.fields['states_id_lost'], __('Lost state', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.dropdownField('State', 'states_id_damaged', item.fields['states_id_damaged'], __('Damaged state', 'assetmove'), {'disabled': not canedit}) }}
+      </div>
+
+      <h3>{{ __('Order integration', 'assetmove') }}</h3>
+      {% if item.fields['is_order_integration_active'] and order_generated_asset_state > 0 %}
+         <div class="alert alert-warning">
+            {{ __('The Order plugin is also configured to set a state on newly generated assets. Both plugins will fight over the state field: either clear Order\'s "generated asset state" setting, or leave this document type\'s target state empty.', 'assetmove') }}
+         </div>
+      {% endif %}
+      <div class="row">
+         {{ fields.checkboxField('is_order_integration_active', item.fields['is_order_integration_active'], __('Auto-create a reception movement from Order', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.checkboxField('is_infocom_fallback_active', item.fields['is_infocom_fallback_active'], __('Fallback: also detect receptions via Infocom', 'assetmove'), {'disabled': not canedit}) }}
+      </div>
+      <div class="row">
+         {{ fields.dropdownArrayField('reception_initial_status', item.fields['reception_initial_status'], {
+            1: __('New (a controller must confirm it)', 'assetmove'),
+            5: __('Done (applied immediately)', 'assetmove'),
+         }, __('Initial status of a reception movement', 'assetmove'), {'disabled': not canedit}) }}
+      </div>
+
+      <h3>{{ __('Movements', 'assetmove') }}</h3>
+      <div class="row">
+         {{ fields.checkboxField('is_block_parallel_movements', item.fields['is_block_parallel_movements'], __('Block a second active document on an item already being moved', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.numberField('overdue_reminder_days', item.fields['overdue_reminder_days'], __('Days before an in-transit shipment is considered overdue', 'assetmove'), {'min': 1, 'disabled': not canedit}) }}
+      </div>
+      <div class="row">
+         {{ fields.textField('number_format_move', item.fields['number_format_move'], __('Movement numbering format', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.textField('number_format_writeoff', item.fields['number_format_writeoff'], __('Write-off numbering format', 'assetmove'), {'disabled': not canedit}) }}
+      </div>
+
+      <h3>{{ __('Write-offs', 'assetmove') }}</h3>
+      <div class="row">
+         {{ fields.checkboxField('is_fill_infocom_date_on_writeoff', item.fields['is_fill_infocom_date_on_writeoff'], __('Fill the Infocom decommission date', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.checkboxField('is_close_tickets_on_writeoff', item.fields['is_close_tickets_on_writeoff'], __('Close open tickets on the item', 'assetmove'), {'disabled': not canedit}) }}
+         {{ fields.checkboxField('is_move_to_trash_on_writeoff', item.fields['is_move_to_trash_on_writeoff'], __('Move the item to the trash bin', 'assetmove'), {'disabled': not canedit}) }}
+      </div>
+   </div>
+
+   {% if canedit %}
+      <div class="form-button-separator card-body mx-n2 border-top d-flex flex-row-reverse">
+         <button type="submit" name="update" value="1" class="btn btn-primary">
+            <i class="ti ti-device-floppy"></i>
+            <span>{{ _x('button', 'Save') }}</span>
+         </button>
+      </div>
+   {% endif %}
+</form>

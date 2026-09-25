@@ -1,0 +1,75 @@
+{% import 'components/form/fields_macros.html.twig' as fields %}
+
+<div class="card-body">
+   {% if rows is empty %}
+      <div class="alert alert-info">
+         {{ __('No item in this document yet.', 'assetmove') }}
+      </div>
+   {% else %}
+      <table class="table card-table">
+         <thead>
+            <tr>
+               <th>{{ __('Type') }}</th>
+               <th>{{ __('Item') }}</th>
+               <th>{{ __('Row status', 'assetmove') }}</th>
+               {% if canedit %}<th></th>{% endif %}
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in rows %}
+               <tr>
+                  <td>{{ row.itemtype|itemtype_name }}</td>
+                  <td>{{ get_item_link(row.itemtype, row.items_id)|raw }}</td>
+                  <td>
+                     {% if row.is_moved %}
+                        {{ __('Applied', 'assetmove') }}
+                     {% elseif row.is_received %}
+                        {{ __('Received', 'assetmove') }}
+                     {% elseif row.is_shipped %}
+                        {{ __('Shipped', 'assetmove') }}
+                     {% else %}
+                        {{ __('Pending', 'assetmove') }}
+                     {% endif %}
+                  </td>
+                  {% if canedit %}
+                     <td>
+                        <form method="post" action="{{ path('/plugins/assetmove/ajax/additems.php') }}">
+                           {{ fields.csrfField() }}
+                           <input type="hidden" name="plugin_assetmove_movements_id" value="{{ document.getID() }}">
+                           <input type="hidden" name="id" value="{{ row.id }}">
+                           <button type="submit" name="delete" value="1" class="btn btn-sm btn-outline-danger">
+                              <i class="ti ti-trash"></i>
+                           </button>
+                        </form>
+                     </td>
+                  {% endif %}
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% endif %}
+
+   {% if canedit %}
+      <form method="post" action="{{ path('/plugins/assetmove/ajax/additems.php') }}" class="mt-3">
+         {{ fields.csrfField() }}
+         <input type="hidden" name="plugin_assetmove_movements_id" value="{{ document.getID() }}">
+
+         <label>{{ __('Add an item', 'assetmove') }}</label>
+         {% do call('Dropdown::showSelectItemFromItemtypes', [{
+            'itemtypes':      movable_types|keys,
+            'itemtype_name':  'itemtype',
+            'items_id_name':  'items_id',
+            'checkright':     true,
+         }]) %}
+         <br><br>
+         <button type="submit" name="add" value="1" class="btn btn-primary">
+            <i class="ti ti-plus"></i>
+            {{ _x('button', 'Add') }}
+         </button>
+      </form>
+   {% elseif document.fields['status'] is defined %}
+      <div class="form-hint">
+         {{ __('Items can only be added or removed while the document is still new.', 'assetmove') }}
+      </div>
+   {% endif %}
+</div>
