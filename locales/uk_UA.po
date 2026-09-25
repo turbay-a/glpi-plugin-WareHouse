@@ -483,6 +483,9 @@ msgstr ""
 msgid "Source"
 msgstr "Джерело"
 
+msgid "Source/destination can only be changed while the document is still new."
+msgstr "Джерело/призначення можна змінювати, лише поки документ ще новий."
+
 msgid "Source type"
 msgstr "Тип джерела"
 

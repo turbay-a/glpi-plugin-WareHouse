@@ -27,6 +27,7 @@
 namespace GlpiPlugin\Assetmove;
 
 use Glpi\Application\View\TemplateRenderer;
+use Session;
 
 /**
  * Physical movement of assets between two locations/users/warehouses.
@@ -198,6 +199,38 @@ class Movement extends AbstractDocument
             $field_map  ??= self::getRouteFieldMap();
             $dest_field = $field_map[$doctype->fields['dest_itemtype']] ?? null;
             $input['dest_items_id'] = $dest_field !== null ? (int) ($input['_dest' . $dest_field] ?? 0) : 0;
+        }
+
+        return $input;
+    }
+
+    /**
+     * TZ 16.9-style enforcement (a hidden field is not enough): the form
+     * only shows the source/destination pickers for an existing document
+     * while it is still NEW (movement_form.html.twig) -- this is the
+     * server-side half of that same rule, refusing the change regardless
+     * of how the request got built once the document has moved on.
+     */
+    public function prepareInputForUpdate($input)
+    {
+        $input = parent::prepareInputForUpdate($input);
+        if ($input === false) {
+            return false;
+        }
+
+        $touches_route = array_key_exists('source_items_id', $input)
+            || array_key_exists('dest_items_id', $input)
+            || array_key_exists('source_itemtype', $input)
+            || array_key_exists('dest_itemtype', $input);
+
+        if ($touches_route && (int) $this->fields['status'] !== Status::NEW) {
+            Session::addMessageAfterRedirect(
+                __('Source/destination can only be changed while the document is still new.', 'assetmove'),
+                false,
+                ERROR
+            );
+
+            return false;
         }
 
         return $input;

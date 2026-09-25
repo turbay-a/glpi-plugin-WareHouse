@@ -463,6 +463,9 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
+msgid "Source/destination can only be changed while the document is still new."
+msgstr ""
+
 msgid "Source type"
 msgstr ""
 

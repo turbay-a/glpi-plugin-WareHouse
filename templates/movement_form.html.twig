@@ -47,14 +47,28 @@
          {{ fields.htmlField('', status_labels[item.fields['status']]|default(item.fields['status']), __('Status')) }}
       </div>
 
-      <div class="row">
-         {{ fields.htmlField('', (item.fields['source_itemtype'] and item.fields['source_items_id'] > 0)
-            ? (item.fields['source_itemtype']|itemtype_name) ~ ': ' ~ (get_item_link(item.fields['source_itemtype'], item.fields['source_items_id'])|default('#' ~ item.fields['source_items_id']))
-            : __('Not set', 'assetmove'), __('Source', 'assetmove')) }}
-         {{ fields.htmlField('', (item.fields['dest_itemtype'] and item.fields['dest_items_id'] > 0)
-            ? (item.fields['dest_itemtype']|itemtype_name) ~ ': ' ~ (get_item_link(item.fields['dest_itemtype'], item.fields['dest_items_id'])|default('#' ~ item.fields['dest_items_id']))
-            : __('Not set', 'assetmove'), __('Destination', 'assetmove')) }}
-      </div>
+      {% if item.fields['status'] == constant('GlpiPlugin\\Assetmove\\Status::NEW') %}
+         {# Editable while still NEW (see Movement::prepareInputForUpdate()
+            for the matching server-side guard) -- the route's itemtypes are
+            already fixed by the DocType, so only one dropdown per side is
+            needed here, unlike the create form's one-per-possible-type
+            layout. #}
+         <div class="row">
+            {{ fields.dropdownField(item.fields['source_itemtype'], 'source_items_id', item.fields['source_items_id'],
+               __('Source', 'assetmove') ~ ' (' ~ item.fields['source_itemtype']|itemtype_name ~ ')') }}
+            {{ fields.dropdownField(item.fields['dest_itemtype'], 'dest_items_id', item.fields['dest_items_id'],
+               __('Destination', 'assetmove') ~ ' (' ~ item.fields['dest_itemtype']|itemtype_name ~ ')') }}
+         </div>
+      {% else %}
+         <div class="row">
+            {{ fields.htmlField('', (item.fields['source_itemtype'] and item.fields['source_items_id'] > 0)
+               ? (item.fields['source_itemtype']|itemtype_name) ~ ': ' ~ (get_item_link(item.fields['source_itemtype'], item.fields['source_items_id'])|default('#' ~ item.fields['source_items_id']))
+               : __('Not set', 'assetmove'), __('Source', 'assetmove')) }}
+            {{ fields.htmlField('', (item.fields['dest_itemtype'] and item.fields['dest_items_id'] > 0)
+               ? (item.fields['dest_itemtype']|itemtype_name) ~ ': ' ~ (get_item_link(item.fields['dest_itemtype'], item.fields['dest_items_id'])|default('#' ~ item.fields['dest_items_id']))
+               : __('Not set', 'assetmove'), __('Destination', 'assetmove')) }}
+         </div>
+      {% endif %}
    {% endif %}
 
    <div class="row">
