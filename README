@@ -1,13 +1,14 @@
-ATTENTION: MADE IN UKRAINE FOR THE WORLD. THERE WAS NO RUSSIAN LANGUAGE AND WILL NOT BE. YOU CAN TRANSLATE IT YOURSELF
+<a id="english"></a>
+
+> **MADE IN UKRAINE FOR THE WORLD.**
+> **THERE WAS NO RUSSIAN LANGUAGE AND WILL NOT BE. YOU CAN TRANSLATE IT YOURSELF**
 # assetmove — Asset Movements & Write-offs for GLPI 11
 
-‹badges: build · latest release · GLPI version · licence›
+<!-- TODO: badges — build · latest release · GLPI version · licence -->
 
 Physical asset movement and write-off workflow for GLPI 11: movement documents with line items, multi-step approval routes, two-phase warehouse transfers, automatic status application, PDF print forms and integration with the Order plugin.
 
-**[Українська версія нижче](#assetmove--облік-переміщень-і-списання-активів-для-glpi-11)**
-
----
+[Українська версія](#ukrainian)
 
 ## The problem
 
@@ -18,22 +19,22 @@ GLPI tracks where an asset *is*, not how it got there. There is no movement docu
 ## Features
 
 | Area | What you get |
-|---|---|
+| --- | --- |
 | Movements | Documents with line items, polymorphic source/destination, snapshot of the route, strict status model |
-| Two-phase transfers | Warehouse → warehouse with separate *shipped* and *received* confirmations by two different managers |
+| Two-phase transfers | Warehouse to warehouse with separate *shipped* and *received* confirmations by two different managers |
 | Transit | Assets in flight are held in a transit location with a dedicated state — never invisible |
 | Discrepancies | Per-line reception: received / missing / damaged, with document-level flagging |
 | Write-offs | Separate itemtype and rights, multi-step approval, automatic target-state application |
 | Approval routes | Sequential and parallel steps, `all` / `any` modes, optional approvers, value-based step conditions, dynamic approver resolution |
 | Printing | PDF print form, auto-attached to the document as a GLPI document |
-| Purchasing | Automatic *Supplier → Warehouse* movement on Order plugin reception |
+| Purchasing | Automatic Supplier to Warehouse movement on Order plugin reception |
 | Custom assets | GLPI 11 asset definitions supported via a *Movable* capacity |
 | Search | Full `rawSearchOptions`: filters, saved searches, CSV/PDF export, dashboards |
 
 ## Requirements
 
 | Component | Version |
-|---|---|
+| --- | --- |
 | GLPI | `>= 11.0.0`, `< 11.1` |
 | PHP | `>= 8.2` (8.4 recommended) |
 | Database | MariaDB 10.11+ / MySQL 8, InnoDB, `utf8mb4` |
@@ -43,16 +44,16 @@ GLPI tracks where an asset *is*, not how it got there. There is no movement docu
 
 ```bash
 cd /var/www/glpi/plugins
-tar xjf assetmove-‹version›.tar.bz2
+tar xjf assetmove-VERSION.tar.bz2
 chown -R www-data:www-data assetmove
 ```
 
-Then *Setup → Plugins → assetmove → Install → Enable*.
+Then go to **Setup → Plugins → assetmove → Install → Enable**.
 
 The release archive ships with `vendor/` included. If you build from source:
 
 ```bash
-git clone ‹repo-url› assetmove && cd assetmove
+git clone REPO_URL assetmove && cd assetmove
 composer install --no-dev --optimize-autoloader
 ```
 
@@ -66,7 +67,7 @@ Work through these in order after installation.
 
 ### 1. Asset states
 
-Create or identify the states you will use in *Setup → Dropdowns → Statuses*: in stock, in transit, in use, written off, lost, damaged. Then map them in *Setup → Plugins → assetmove*.
+Create or identify the states you will use in **Setup → Dropdowns → Statuses**: in stock, in transit, in use, written off, lost, damaged. Then map them in **Setup → Plugins → assetmove**.
 
 ### 2. Transit location
 
@@ -74,26 +75,26 @@ The plugin creates a `Transit` location on installation. Replace it with your ow
 
 ### 3. Warehouses
 
-*Assets → Movements → Warehouses.* A warehouse is a GLPI location plus a responsible manager (МВО) and an optional deputy group. The manager is who is allowed to press *Shipped* / *Received* for that warehouse.
+**Assets → Movements → Warehouses.** A warehouse is a GLPI location plus a responsible manager and an optional deputy group. The manager is who is allowed to press *Shipped* / *Received* for that warehouse.
 
 Mark one warehouse per entity as **default** — that is where purchases are received.
 
 ### 4. Document types
 
-*Assets → Movements → Document types.* The type is not just a label — it is the configuration of the behaviour:
+**Assets → Movements → Document types.** The type is not just a label, it is the configuration of the behaviour:
 
 | Setting | Effect |
-|---|---|
-| Source / destination itemtype | which endpoint pairs are allowed |
-| Apply location / user | whether to write `locations_id` / `users_id` to the asset on execution |
-| Target state | which state the assets get |
-| Two-phase | enables the *shipped* → *received* flow |
-| Approval required | route the document through approvals before it can be executed |
-| Auto-execute on approval | apply changes automatically once fully approved |
-| Return expected | for repair / RMA routes |
-| Default for reception | the type used for auto-generated purchase movements |
+| --- | --- |
+| Source / destination itemtype | Which endpoint pairs are allowed |
+| Apply location / user | Whether to write `locations_id` / `users_id` to the asset on execution |
+| Target state | Which state the assets get |
+| Two-phase | Enables the shipped-then-received flow |
+| Approval required | Route the document through approvals before it can be executed |
+| Auto-execute on approval | Apply changes automatically once fully approved |
+| Return expected | For repair / RMA routes |
+| Default for reception | The type used for auto-generated purchase movements |
 
-Suggested starting set: *Purchase receipt*, *Warehouse → Warehouse*, *Issue to user*, *Return from user*, *Send for repair*, *Write-off: disposal*, *Write-off: sale*, *Write-off: loss*.
+Suggested starting set: Purchase receipt, Warehouse to Warehouse, Issue to user, Return from user, Send for repair, Write-off: disposal, Write-off: sale, Write-off: loss.
 
 ### 5. Approval routes
 
@@ -105,15 +106,15 @@ A step in `any` mode is satisfied by one approval from the group; in `all` mode 
 
 ### 6. Permissions
 
-*Administration → Profiles → ‹profile› → assetmove.* Two independent rightnames:
+**Administration → Profiles → your profile → assetmove.** Two independent rightnames:
 
 | Right | Movements | Write-offs |
-|---|---|---|
+| --- | --- | --- |
 | Read / Create / Update / Delete / Purge | yes | yes |
 | Approve | yes | yes |
-| Ship | yes | — |
-| Receive | yes | — |
-| Execute | — | yes |
+| Ship | yes | no |
+| Receive | yes | no |
+| Execute | no | yes |
 | Cancel | yes | yes |
 | Force | yes | yes |
 
@@ -125,7 +126,7 @@ A step in `any` mode is satisfied by one approval from the group; in `all` mode 
 
 ### Creating a movement
 
-From *Assets → Movements → Add*, or — more usefully — select assets in any asset list and use the mass action *Create movement*.
+From **Assets → Movements → Add**, or — more usefully — select assets in any asset list and use the mass action **Create movement**.
 
 Fill in the type, source, destination, responsible person and planned date, then add the assets to the table part. Submit for approval or approve directly, depending on the type.
 
@@ -133,7 +134,7 @@ Fill in the type, source, destination, responsible person and planned date, then
 
 1. Source warehouse manager opens the approved document and presses **Shipped**. Assets move to the transit location and the in-transit state.
 2. Destination warehouse manager opens it and presses **Receive**, marking each line as received, missing or damaged.
-3. Once every line has a reception result, the document closes as *Done*. If anything was missing or damaged, the document is flagged and notifications go out.
+3. Once every line has a reception result, the document closes as **Done**. If anything was missing or damaged, the document is flagged and notifications go out.
 
 The same person cannot do both steps unless the type allows self-reception or the user has `Force`.
 
@@ -143,26 +144,28 @@ Create a write-off document, add the assets, submit for approval. Once all manda
 
 ### Printing
 
-The **Print** action generates a PDF of the document and attaches it to the document's *Documents* tab. ‹document behaviour on regeneration: overwrite vs new version›
+The **Print** action generates a PDF of the document and attaches it to the document's *Documents* tab.
+
+<!-- TODO: describe behaviour on regeneration — overwrite the existing attachment or create a new version -->
 
 ### Reversing a completed movement
 
-*Done* is terminal. Use **Create reverse movement** — it produces a new document with source and destination swapped and the same line items, linked to the original in both directions.
+**Done** is terminal. Use **Create reverse movement** — it produces a new document with source and destination swapped and the same line items, linked to the original in both directions.
 
 ## Order plugin integration
 
 Enabled by default when the Order plugin is active. Disable it in the plugin configuration if you do not want it.
 
-On reception of an order, the plugin creates one *Supplier → Warehouse* movement per delivery note, containing every received asset as a line.
+On reception of an order, the plugin creates one Supplier-to-Warehouse movement per delivery note, containing every received asset as a line.
 
 | Movement field | Source in Order |
-|---|---|
-| Source | order supplier |
-| Destination | order delivery location → entity default warehouse → global default |
-| Responsible | order delivery user, falling back to the warehouse manager |
-| Entity | order line entity |
-| Execution date | line delivery date |
-| Initial status | plugin setting: *New* (storekeeper confirms) or *Done* (applied immediately) |
+| --- | --- |
+| Source | Order supplier |
+| Destination | Order delivery location, then entity default warehouse, then global default |
+| Responsible | Order delivery user, falling back to the warehouse manager |
+| Entity | Order line entity |
+| Execution date | Line delivery date |
+| Initial status | Plugin setting: New (storekeeper confirms) or Done (applied immediately) |
 
 Ignored line types: consumables, cartridges, software licences, contracts, free references and "other" positions.
 
@@ -172,25 +175,25 @@ Ignored line types: consumables, cartridges, software licences, contracts, free 
 
 Events: created, approval requested, approved, refused, shipped, received, discrepancy, done, cancelled, overdue.
 
-Cron tasks (GLPI *Automatic actions*):
+Cron tasks, found under GLPI **Automatic actions**:
 
 | Task | Purpose |
-|---|---|
-| `overdueShipment` | shipped documents not received within N days, with escalation at 2×N |
-| `overduePlanned` | planned date passed, document not completed |
-| `overdueReturn` | items sent to a supplier and not returned by the expected date |
-| `pendingValidation` | approvals sitting untouched for N days |
+| --- | --- |
+| `overdueShipment` | Shipped documents not received within N days, with escalation at 2N |
+| `overduePlanned` | Planned date passed, document not completed |
+| `overdueReturn` | Items sent to a supplier and not returned by the expected date |
+| `pendingValidation` | Approvals sitting untouched for N days |
 
 ## API
 
 Both itemtypes are exposed through the GLPI REST API. Use the fully-qualified, URL-encoded itemtype:
 
-```
+```text
 GET /apirest.php/GlpiPlugin%5CAssetmove%5CMovement
 GET /apirest.php/GlpiPlugin%5CAssetmove%5CWriteoff
 ```
 
-Status transitions performed through the API go through the same state machine and permission checks as the UI. ‹confirm and adjust if any endpoint bypasses this›
+Status transitions performed through the API go through the same state machine and permission checks as the UI.
 
 ## Troubleshooting
 
@@ -198,18 +201,19 @@ Status transitions performed through the API go through the same state machine a
 
 **Assets end up in the wrong state after a purchase.** See the conflict warning above — the state is being set twice.
 
-**A warehouse manager cannot press Shipped.** Two separate checks: the `Ship` right in the profile, and being the manager (or a deputy group member) of the source warehouse. Both must be satisfied.
+**A warehouse manager cannot press Shipped.** Two separate checks: the `Ship` right in the profile, and being the manager or a deputy group member of the source warehouse. Both must be satisfied.
 
-**Custom assets do not appear in the asset picker.** Enable the *Movable* capacity on the asset definition in *Setup → Asset definitions*.
+**Custom assets do not appear in the asset picker.** Enable the *Movable* capacity on the asset definition in **Setup → Asset definitions**.
 
-**Cyrillic characters are broken in the PDF.** ‹font configuration notes›
+**Cyrillic characters are broken in the PDF.**
+
+<!-- TODO: font configuration notes -->
 
 ## Known limitations
 
 - Entity-to-entity movement records the fact only and does not perform a GLPI `Transfer`.
 - Consumables, cartridges, software licences and contracts are not supported as movable items.
 - No electronic signature on printed forms.
-- ‹add your own›
 
 ## Development
 
@@ -223,28 +227,33 @@ Contributions welcome. Please keep code and commit messages in English, and UI s
 
 ## Licence
 
-GPL-3.0-or-later. ‹confirm›
+GPL-3.0-or-later.
 
 ---
----
-УВАГА: ЗРОБЛЕНО В УКРАЇНІ ДЛЯ СВІТУ. РОСІЙСЬКОЇ МОВИ НЕ БУЛО І НЕ БУДЕ. МОЖЕТЕ ПЕРЕКЛАСТИ САМОСТІЙНО
+
+<a id="ukrainian"></a>
+
+> **ЗРОБЛЕНО В УКРАЇНІ ДЛЯ СВІТУ.**
+> **РОСІЙСЬКОЇ МОВИ НЕ БУЛО І НЕ БУДЕ. МОЖЕТЕ ПЕРЕКЛАСТИ САМОСТІЙНО**
 # assetmove — облік переміщень і списання активів для GLPI 11
 
 Документообіг фізичних переміщень і списання активів для GLPI 11: документи з табличною частиною, багатокрокові маршрути погодження, двофазні переміщення між складами, автоматичне проставляння статусів, друковані форми PDF та інтеграція з плагіном Order.
 
+[English version](#english)
+
 ## Проблема
 
-GLPI знає, де актив *зараз*, але не знає, як він туди потрапив. Немає документа переміщення, немає підтвердження передачі, немає сліду погодження. Списання робиться ручною зміною статусу. А якщо використовується плагін Order — згенеровані при оприбуткуванні активи взагалі не мають локації, і після закупівлі ніхто не знає, де техніка фізично.
+GLPI знає, де актив *зараз*, але не знає, як він туди потрапив. Немає документа переміщення, немає підтвердження передачі, немає сліду погодження. Списання робиться ручною зміною статусу. А якщо використовується плагін Order, згенеровані при оприбуткуванні активи взагалі не мають локації, і після закупівлі ніхто не знає, де техніка фізично.
 
 `assetmove` додає той шар документів, якого бракує.
 
 ## Можливості
 
 | Напрям | Що дає |
-|---|---|
-| Переміщення | Документи з табличною частиною, поліморфні джерело/призначення, знімок маршруту, жорстка статусна модель |
-| Двофазні переміщення | Склад → склад із окремими підтвердженнями «відправлено» і «отримано» від двох різних МВО |
-| Транзит | Активи в дорозі числяться в транзитній локації з окремим станом — ніколи не зникають з обліку |
+| --- | --- |
+| Переміщення | Документи з табличною частиною, поліморфні джерело та призначення, знімок маршруту, жорстка статусна модель |
+| Двофазні переміщення | Склад до складу з окремими підтвердженнями «відправлено» і «отримано» від двох різних МВО |
+| Транзит | Активи в дорозі числяться в транзитній локації з окремим станом і ніколи не зникають з обліку |
 | Розбіжності | Порядкове приймання: прийнято / недостача / пошкоджено, з позначкою на документі |
 | Списання | Окремий itemtype і права, багатокрокове погодження, автоматичне застосування цільового стану |
 | Маршрути погодження | Послідовні й паралельні кроки, режими «всі» / «будь-хто», необов'язкові погоджувачі, умови за сумою, динамічні погоджувачі |
@@ -256,9 +265,9 @@ GLPI знає, де актив *зараз*, але не знає, як він �
 ## Вимоги
 
 | Компонент | Версія |
-|---|---|
+| --- | --- |
 | GLPI | `>= 11.0.0`, `< 11.1` |
-| PHP | `>= 8.2` (рекомендовано 8.4) |
+| PHP | `>= 8.2`, рекомендовано 8.4 |
 | БД | MariaDB 10.11+ / MySQL 8, InnoDB, `utf8mb4` |
 | Плагін Order | `>= 2.12.0` — опційно, лише для інтеграції з закупівлями |
 
@@ -266,16 +275,16 @@ GLPI знає, де актив *зараз*, але не знає, як він �
 
 ```bash
 cd /var/www/glpi/plugins
-tar xjf assetmove-‹версія›.tar.bz2
+tar xjf assetmove-VERSION.tar.bz2
 chown -R www-data:www-data assetmove
 ```
 
-Далі *Налаштування → Плагіни → assetmove → Встановити → Активувати*.
+Далі **Налаштування → Плагіни → assetmove → Встановити → Активувати**.
 
 Реліз-архів містить `vendor/`. Якщо збираєте з вихідників:
 
 ```bash
-git clone ‹repo-url› assetmove && cd assetmove
+git clone REPO_URL assetmove && cd assetmove
 composer install --no-dev --optimize-autoloader
 ```
 
@@ -289,7 +298,7 @@ composer install --no-dev --optimize-autoloader
 
 ### 1. Стани активів
 
-Створіть або визначте потрібні стани в *Налаштування → Списки → Статуси*: на складі, в дорозі, в експлуатації, списано, втрачено, пошкоджено. Потім змапте їх у *Налаштування → Плагіни → assetmove*.
+Створіть або визначте потрібні стани в **Налаштування → Списки → Статуси**: на складі, в дорозі, в експлуатації, списано, втрачено, пошкоджено. Потім змапте їх у **Налаштування → Плагіни → assetmove**.
 
 ### 2. Транзитна локація
 
@@ -297,26 +306,26 @@ composer install --no-dev --optimize-autoloader
 
 ### 3. Склади
 
-*Активи → Переміщення → Склади.* Склад — це локація GLPI плюс відповідальна особа (МВО) і необов'язкова група заступників. МВО — це той, кому дозволено тиснути «Відправлено» / «Отримано» для цього складу.
+**Активи → Переміщення → Склади.** Склад — це локація GLPI плюс відповідальна особа (МВО) і необов'язкова група заступників. МВО — це той, кому дозволено тиснути «Відправлено» і «Отримано» для цього складу.
 
 Один склад на ентіті позначте як **дефолтний** — саме на нього приймаються закупівлі.
 
 ### 4. Типи документів
 
-*Активи → Переміщення → Типи документів.* Тип — не просто підпис, а конфігурація поведінки:
+**Активи → Переміщення → Типи документів.** Тип — не просто підпис, а конфігурація поведінки:
 
 | Налаштування | Що робить |
-|---|---|
-| Тип джерела / призначення | які пари кінцівок дозволені |
-| Застосовувати локацію / користувача | чи писати `locations_id` / `users_id` в актив при виконанні |
-| Цільовий стан | у який стан переводяться активи |
-| Двофазність | вмикає потік «відправлено» → «отримано» |
-| Потрібне погодження | документ проходить маршрут перед виконанням |
-| Автовиконання після погодження | застосовувати зміни автоматично після повного погодження |
-| Очікується повернення | для ремонту / RMA |
-| Тип за замовчуванням для приймання | використовується для автостворених документів із закупівель |
+| --- | --- |
+| Тип джерела та призначення | Які пари кінцівок дозволені |
+| Застосовувати локацію / користувача | Чи писати `locations_id` та `users_id` в актив при виконанні |
+| Цільовий стан | У який стан переводяться активи |
+| Двофазність | Вмикає потік «відправлено» → «отримано» |
+| Потрібне погодження | Документ проходить маршрут перед виконанням |
+| Автовиконання після погодження | Застосовувати зміни автоматично після повного погодження |
+| Очікується повернення | Для ремонту та RMA |
+| Тип за замовчуванням для приймання | Використовується для автостворених документів із закупівель |
 
-Рекомендований стартовий набір: *Оприбуткування*, *Склад → Склад*, *Видача користувачу*, *Повернення від користувача*, *Відправка в ремонт*, *Списання: утилізація*, *Списання: продаж*, *Списання: втрата*.
+Рекомендований стартовий набір: Оприбуткування, Склад до складу, Видача користувачу, Повернення від користувача, Відправка в ремонт, Списання: утилізація, Списання: продаж, Списання: втрата.
 
 ### 5. Маршрути погодження
 
@@ -328,15 +337,15 @@ composer install --no-dev --optimize-autoloader
 
 ### 6. Права
 
-*Адміністрування → Профілі → ‹профіль› → assetmove.* Два незалежні набори:
+**Адміністрування → Профілі → ваш профіль → assetmove.** Два незалежні набори:
 
 | Право | Переміщення | Списання |
-|---|---|---|
+| --- | --- | --- |
 | Читання / Створення / Зміна / Видалення / Очищення | так | так |
 | Погодити | так | так |
-| Відправити | так | — |
-| Прийняти | так | — |
-| Виконати | — | так |
+| Відправити | так | ні |
+| Прийняти | так | ні |
+| Виконати | ні | так |
 | Скасувати | так | так |
 | Примусово | так | так |
 
@@ -348,44 +357,46 @@ composer install --no-dev --optimize-autoloader
 
 ### Створення переміщення
 
-З *Активи → Переміщення → Додати*, або — зручніше — виділити активи в будь-якому списку і викликати масову дію *Створити переміщення*.
+З **Активи → Переміщення → Додати**, або, що зручніше, виділити активи в будь-якому списку і викликати масову дію **Створити переміщення**.
 
 Заповніть тип, джерело, призначення, відповідального і планову дату, додайте активи в табличну частину. Далі подайте на погодження або погодьте одразу, залежно від типу.
 
 ### Двофазне переміщення
 
-1. МВО складу-джерела відкриває погоджений документ і тисне **«Відправлено»**. Активи переходять у транзитну локацію і стан «в дорозі».
-2. МВО складу-призначення відкриває документ і тисне **«Прийняти»**, позначаючи кожен рядок як прийнятий, недостачу або пошкоджений.
-3. Коли по всіх рядках є результат приймання, документ закривається як «Виконано». Якщо щось не доїхало або пошкоджене — документ позначається і йдуть сповіщення.
+1. МВО складу-джерела відкриває погоджений документ і тисне **Відправлено**. Активи переходять у транзитну локацію і стан «в дорозі».
+2. МВО складу-призначення відкриває документ і тисне **Прийняти**, позначаючи кожен рядок як прийнятий, недостачу або пошкоджений.
+3. Коли по всіх рядках є результат приймання, документ закривається як **Виконано**. Якщо щось не доїхало або пошкоджене, документ позначається і йдуть сповіщення.
 
 Одна людина не може зробити обидва кроки, якщо тип не дозволяє самоприймання або користувач не має права «Примусово».
 
 ### Списання
 
-Створіть документ списання, додайте активи, подайте на погодження. Після погодження всіма обов'язковими учасниками цільовий стан застосовується до всіх активів табличної частини автоматично — без додаткових натискань.
+Створіть документ списання, додайте активи, подайте на погодження. Після погодження всіма обов'язковими учасниками цільовий стан застосовується до всіх активів табличної частини автоматично, без додаткових натискань.
 
 ### Друк
 
-Дія **«Друк»** генерує PDF документа і прикріплює його на вкладку «Документи». ‹поведінка при повторній генерації: перезапис чи нова версія›
+Дія **Друк** генерує PDF документа і прикріплює його на вкладку «Документи».
+
+<!-- TODO: описати поведінку при повторній генерації — перезапис чи нова версія -->
 
 ### Відкат виконаного переміщення
 
-«Виконано» — термінальний статус. Використовуйте **«Створити зворотне переміщення»**: створюється новий документ із поміняними місцями джерелом і призначенням та тією ж табличною частиною, зв'язаний з оригіналом в обидві сторони.
+**Виконано** — термінальний статус. Використовуйте **Створити зворотне переміщення**: створюється новий документ із поміняними місцями джерелом і призначенням та тією ж табличною частиною, зв'язаний з оригіналом в обидві сторони.
 
 ## Інтеграція з плагіном Order
 
 Вмикається автоматично, якщо Order активний. Вимикається в налаштуваннях плагіна.
 
-При прийманні замовлення створюється одне переміщення *Постачальник → Склад* на кожну накладну, з усіма прийнятими активами як рядками.
+При прийманні замовлення створюється одне переміщення «Постачальник → Склад» на кожну накладну, з усіма прийнятими активами як рядками.
 
 | Поле документа | Джерело в Order |
-|---|---|
-| Джерело | постачальник замовлення |
-| Призначення | локація доставки замовлення → дефолтний склад ентіті → глобальний дефолт |
-| Відповідальний | користувач доставки замовлення, фолбек — МВО складу |
-| Ентіті | ентіті рядка замовлення |
-| Дата виконання | дата поставки рядка |
-| Початковий статус | налаштування плагіна: «Новий» (підтверджує комірник) або «Виконано» (застосовується одразу) |
+| --- | --- |
+| Джерело | Постачальник замовлення |
+| Призначення | Локація доставки замовлення, потім дефолтний склад ентіті, потім глобальний дефолт |
+| Відповідальний | Користувач доставки замовлення, фолбек — МВО складу |
+| Ентіті | Ентіті рядка замовлення |
+| Дата виконання | Дата поставки рядка |
+| Початковий статус | Налаштування плагіна: «Новий», який підтверджує комірник, або «Виконано» з негайним застосуванням |
 
 Ігноруються: витратні матеріали, картриджі, ліцензії, контракти, вільні позиції та «інше».
 
@@ -395,25 +406,25 @@ composer install --no-dev --optimize-autoloader
 
 Події: створено, запит на погодження, погоджено, відхилено, відправлено, отримано, розбіжність, виконано, скасовано, прострочено.
 
-Cron-задачі (*Автоматичні дії* GLPI):
+Cron-задачі в розділі **Автоматичні дії** GLPI:
 
 | Задача | Призначення |
-|---|---|
-| `overdueShipment` | відправлені документи, не прийняті протягом N днів, з ескалацією на 2×N |
-| `overduePlanned` | планова дата минула, документ не завершено |
-| `overdueReturn` | позиції, відправлені постачальнику й не повернуті до очікуваної дати |
-| `pendingValidation` | погодження, що висять без відповіді N днів |
+| --- | --- |
+| `overdueShipment` | Відправлені документи, не прийняті протягом N днів, з ескалацією на 2N |
+| `overduePlanned` | Планова дата минула, документ не завершено |
+| `overdueReturn` | Позиції, відправлені постачальнику й не повернуті до очікуваної дати |
+| `pendingValidation` | Погодження, що висять без відповіді N днів |
 
 ## API
 
 Обидва itemtype доступні через REST API GLPI. Використовуйте повне ім'я класу в URL-енкодингу:
 
-```
+```text
 GET /apirest.php/GlpiPlugin%5CAssetmove%5CMovement
 GET /apirest.php/GlpiPlugin%5CAssetmove%5CWriteoff
 ```
 
-Зміни статусів через API проходять ту саму стейт-машину і ті самі перевірки прав, що й в інтерфейсі. ‹звірити й уточнити, якщо якийсь ендпоінт це обходить›
+Зміни статусів через API проходять ту саму стейт-машину і ті самі перевірки прав, що й в інтерфейсі.
 
 ## Усунення проблем
 
@@ -421,18 +432,19 @@ GET /apirest.php/GlpiPlugin%5CAssetmove%5CWriteoff
 
 **Активи після закупівлі отримують не той стан.** Див. попередження про конфлікт вище — стан ставиться двічі.
 
-**МВО не може натиснути «Відправлено».** Дві окремі перевірки: право «Відправити» в профілі і статус МВО (або членство в групі заступників) складу-джерела. Мають пройти обидві.
+**МВО не може натиснути «Відправлено».** Дві окремі перевірки: право «Відправити» в профілі і статус МВО або членство в групі заступників складу-джерела. Мають пройти обидві.
 
-**Кастомні активи не з'являються у виборі.** Увімкніть capacity «Переміщуваний» на визначенні активу в *Налаштування → Визначення активів*.
+**Кастомні активи не з'являються у виборі.** Увімкніть capacity «Переміщуваний» на визначенні активу в **Налаштування → Визначення активів**.
 
-**Кирилиця в PDF ламається.** ‹нотатки про налаштування шрифтів›
+**Кирилиця в PDF ламається.**
+
+<!-- TODO: нотатки про налаштування шрифтів -->
 
 ## Відомі обмеження
 
 - Переміщення між організаціями фіксує лише факт і не виконує `Transfer` GLPI.
 - Витратні матеріали, картриджі, ліцензії та контракти не підтримуються як переміщувані позиції.
 - Електронний підпис друкованих форм не реалізований.
-- ‹додайте свої›
 
 ## Розробка
 
@@ -442,8 +454,8 @@ vendor/bin/phpstan analyse
 vendor/bin/phpunit
 ```
 
-Внески вітаються. Код і повідомлення коммітів — англійською, рядки інтерфейсу — через gettext.
+Внески вітаються. Код і повідомлення коммітів англійською, рядки інтерфейсу через gettext.
 
 ## Ліцензія
 
-GPL-3.0-or-later
+GPL-3.0-or-later.
